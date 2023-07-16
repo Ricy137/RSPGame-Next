@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import JotaiProvider from "@/modules/JotaiProvider";
 
 export const metadata: Metadata = {
   title: "RPS game",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <JotaiProvider>{children}</JotaiProvider>
+      </body>
     </html>
   );
 }
