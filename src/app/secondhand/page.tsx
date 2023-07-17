@@ -38,7 +38,7 @@ const SecondHand: React.FC = () => {
           {...register("move", { required: true })}
           setValue={setValue}
         />
-        <AuthConnect>
+        <AuthConnect gameInfoRequired={true}>
           <input
             type="submit"
             value="Make the move"
