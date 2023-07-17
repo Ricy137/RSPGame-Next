@@ -1,6 +1,7 @@
 import { atomsWithQuery } from "jotai-tanstack-query";
 import { BrowserProvider } from "ethers";
-import gameInfoAtom, { GameInfo, Processing_Status } from ".";
+import { syncGameAtom } from ".";
+import { GameInfo, Processing_Status } from ".";
 
 export interface CountDownInfo {
   turn: "first hand" | "second hand";
@@ -11,13 +12,9 @@ export interface CountDownInfo {
 
 export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
   // queryKey: ["countdown", get(gameInfoAtom)],
-  queryKey: [
-    "countdown",
-    get(gameInfoAtom)?.status,
-    get(gameInfoAtom)?.lastAction,
-  ],
+  queryKey: ["countdown", get(syncGameAtom)],
   queryFn: async () => {
-    let gameInfo = get(gameInfoAtom);
+    let gameInfo = get(syncGameAtom);
     let gameStatusInfo = gameInfo as GameInfo | null;
     if (!window.ethereum) return null;
     if (!gameStatusInfo) return null;

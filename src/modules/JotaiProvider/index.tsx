@@ -3,11 +3,14 @@ import { ReactNode, useCallback, useEffect } from "react";
 import { Provider } from "jotai";
 import { useAtom } from "jotai";
 import { accountsAtom } from "@/services/accounts";
+import { syncGameAtom } from "@/services/game";
 
 const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Provider>
-      <AccountWrapper>{children}</AccountWrapper>
+      <AccountWrapper>
+        <GameInfoWrapper>{children}</GameInfoWrapper>
+      </AccountWrapper>
     </Provider>
   );
 };
@@ -26,5 +29,11 @@ const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
       console.log(e);
     }
   }, []);
+  return <>{children}</>;
+};
+
+const GameInfoWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [data] = useAtom(syncGameAtom);
+
   return <>{children}</>;
 };

@@ -3,10 +3,10 @@ import { useAtomValue } from "jotai";
 import ToolTip from "@/components/Tooltip";
 import { QuestionIcon } from "@/components/Icons";
 import { WrapperCard } from "@/components/Card";
-import gameInfoAtom from "@/services/game";
+import gameEssentialAtom from "@/services/game";
 
 const FirstHandSolving: React.FC = () => {
-  const gameInfo = useAtomValue(gameInfoAtom);
+  const gameEssential = useAtomValue(gameEssentialAtom);
   return (
     <WrapperCard className="flex flex-col gap-y-[24px] w-full">
       <div className="text-[24px] leading-[32px] font-medium uppercase">
@@ -18,7 +18,7 @@ const FirstHandSolving: React.FC = () => {
           <QuestionIcon />
         </ToolTip>
         {": "}
-        {gameInfo?.contractAdd ?? "--"}
+        {gameEssential?.contractAdd ?? "--"}
       </div>
       <div className="flex flex-row items-center gap-x-[8px]">
         Salt &#40; don&#39;t leak! &#41;
@@ -26,7 +26,7 @@ const FirstHandSolving: React.FC = () => {
           <QuestionIcon />
         </ToolTip>
         {": "}
-        {gameInfo?.salt ?? "--"}
+        {gameEssential?.salt ?? "--"}
       </div>
     </WrapperCard>
   );
