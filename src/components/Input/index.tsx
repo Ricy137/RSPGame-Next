@@ -1,7 +1,6 @@
 "use client";
-import { forwardRef, useRef, useCallback } from "react";
+import { forwardRef } from "react";
 import cx from "clsx";
-import composeRef from "@/utils/composeRef";
 import style from "./style.module.css";
 
 export type Props = OverWrite<
@@ -10,6 +9,7 @@ export type Props = OverWrite<
     title?: string;
     error?: string;
     inputClassName?: string;
+    lableClassName?: string;
   }
 >;
 
@@ -18,21 +18,25 @@ const Input = forwardRef<HTMLInputElement, Props>(
     {
       className,
       inputClassName,
+      lableClassName,
       error,
       defaultValue,
       title,
+      type,
       onChange,
       ...props
     },
     ref
   ) => {
-
     return (
       <>
         {title && (
           <label
             htmlFor={props.name}
-            className="mb-[4px] text-[14px] text-[#62677B]"
+            className={cx(
+              "mb-[4px] text-[14px] text-[#62677B]",
+              lableClassName
+            )}
           >
             {title}
           </label>
@@ -46,7 +50,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
               autoComplete="off"
               defaultValue={defaultValue}
               onChange={onChange}
-              type="number"
+              type={type}
               id={props.name}
               autoFocus
               {...props}

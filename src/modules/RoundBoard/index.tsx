@@ -1,28 +1,24 @@
 "use client";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useMemo } from "react";
+import { useAtom } from "jotai";
+import { CountDownInfo, countDownAtom } from "@/services/game";
 import { WrapperCard } from "@/components/Card";
 import { secondToFormat } from "@/utils/time";
 
-interface RoundBoardProps {
-  turn: "first hand" | "second hand";
-  started: boolean;
-  startTime: number;
-}
+const RoundBoard: React.FC = () => {
+  const [gameInfo] = useAtom(countDownAtom);
+  // const gameInfo: CountDownInfo | null = null;
+  const endTime = new Date().getTime() + (gameInfo?.leftTime ?? 0) * 1000;
+  const [leftTime, setLeftTime] = useState<number>(gameInfo?.leftTime ?? 0);
 
-const RoundBoard: React.FC<RoundBoardProps> = ({
-  turn,
-  started,
-  startTime,
-}) => {
-  const [leftTime, setLeftTime] = useState<number>(5 * 60 * 1000);
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
-    const diff = now - startTime;
-    setLeftTime(leftTime - diff);
-  }, []);
+    const diff = endTime - now;
+    setLeftTime(Math.floor(diff / 1000));
+  }, [endTime]);
 
   useEffect(() => {
-    if (!started) return;
+    if (!gameInfo) return;
     const intervalId = setInterval(refreshTime, 1000);
     return () => clearInterval(intervalId);
   }, []);
@@ -31,10 +27,10 @@ const RoundBoard: React.FC<RoundBoardProps> = ({
     <WrapperCard className="w-full">
       <div className="flex flex-row justify-between uppercase">
         <div className="text-[24px] leading-[32px] font-medium">
-          turn: {turn}
+          turn: {gameInfo?.turn ?? "--"}
         </div>
         <div className="text-[16px] leading-[24px] font-medium">
-          count down: {started ? secondToFormat(leftTime) : "infinity"}
+          count down: {gameInfo ? secondToFormat(leftTime) : "--"}
         </div>
       </div>
     </WrapperCard>

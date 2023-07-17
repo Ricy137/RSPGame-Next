@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import RoundBoard from "@/modules/RoundBoard";
 
-const FirstHandLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+const SecondHandLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   //todo: start time should be an atome variable
   return (
     <div className="py-[40px] flex flex-col items-center">
@@ -13,4 +13,4 @@ const FirstHandLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export default FirstHandLayout;
+export default SecondHandLayout;

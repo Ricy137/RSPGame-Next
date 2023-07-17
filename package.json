@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.24.8",
     "@tanstack/query-core": "^4.29.23",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
