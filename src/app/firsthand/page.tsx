@@ -1,5 +1,5 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import MoveBard from "@/modules/MoveBoard";
@@ -21,13 +21,16 @@ const FirstHand: React.FC = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<StartForm>();
   const { startGame } = useStartGame();
 
   const onSubmit = useCallback(async ({ move, j2, stake }: StartForm) => {
     try {
       await startGame(move, j2, stake);
+      reset();
     } catch (err) {
+      if (err instanceof Error) alert(err?.message);
       console.log(err);
     }
   }, []);

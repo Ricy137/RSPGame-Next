@@ -17,12 +17,14 @@ const SecondHandCard: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<JoinForm>();
 
   const onSubmit = useCallback(
     async (data: JoinForm) => {
       try {
         await joinGame(data.contractAddress);
+        reset();
       } catch (err) {
         console.log(err);
         if (err instanceof Error) alert(err?.message);

@@ -41,7 +41,8 @@ const GameInfoWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (!data) return;
     const { status } = data;
     if (status === "ended") {
-      router.push("/result");
+      //delay the time to jump is because winner data is read from blockchain and it takes time to be updated
+      setTimeout(() => router.push("/result"), 1000);
     }
   }, [data]);
 

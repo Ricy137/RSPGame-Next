@@ -13,17 +13,9 @@ export const [, playAtom] = atomsWithMutation((get) => ({
     let stake: string;
     let solvedSyncGame = await syncGame;
     stake = solvedSyncGame?.stake || "0";
-    try {
-      const signer = await new BrowserProvider(window.ethereum).getSigner();
-      const RSPContract = new Contract(
-        gameEssential.contractAdd,
-        RSPAbi,
-        signer
-      );
-      let tx = await RSPContract.play(move, { value: stake });
-      await tx.wait();
-    } catch (err) {
-      console.log(err);
-    }
+    const signer = await new BrowserProvider(window.ethereum).getSigner();
+    const RSPContract = new Contract(gameEssential.contractAdd, RSPAbi, signer);
+    let tx = await RSPContract.play(move, { value: stake });
+    await tx.wait();
   },
 }));

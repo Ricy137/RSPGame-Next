@@ -13,24 +13,26 @@ export const useResumeGame = () => {
     switch (status) {
       case "notStarted":
         return;
+      case "J2Moving":
+        router.push("/firsthand/solving");
+        return;
+      case "J1Solving":
+        router.push("/firsthand/solving");
+        return;
       case "ended":
         router.push("/result");
         return;
-      default:
-        router.push("/result");
-        return;
+      // default:
+      //   router.push("/result");
+      //   return;
     }
   }, []);
   const resumeGame = useCallback(
     async (contractAdd: string) => {
-      try {
-        setAdd({ contractAdd });
-        let gameInfo = await fetchGameInfo(contractAdd);
-        if (!gameInfo) return;
-        directByStatus(gameInfo.status);
-      } catch (err) {
-        console.log(err);
-      }
+      setAdd({ contractAdd });
+      let gameInfo = await fetchGameInfo(contractAdd);
+      if (!gameInfo) return;
+      directByStatus(gameInfo.status);
     },
     [window]
   );

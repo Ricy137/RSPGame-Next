@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import { countDownAtom } from "@/services/game";
 import { WrapperCard } from "@/components/Card";
 import { secondToFormat } from "@/utils/time";
+import TimeoutBtn from "./timeout";
 
 const RoundBoard: React.FC = () => {
   const [gameInfo] = useAtom(countDownAtom);
@@ -14,6 +15,7 @@ const RoundBoard: React.FC = () => {
   const [leftTime, setLeftTime] = useState<number | undefined>(
     defferedGameInfo?.leftTime
   );
+  console.log("leftTime", leftTime);
 
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
@@ -22,10 +24,10 @@ const RoundBoard: React.FC = () => {
   }, [endTime]);
 
   useEffect(() => {
-    if (!defferedGameInfo) return;
+    if (!defferedGameInfo || !leftTime || leftTime < 0) return;
     const intervalId = setInterval(refreshTime, 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [leftTime]);
 
   useEffect(() => {
     if (!defferedGameInfo) return;
@@ -34,12 +36,14 @@ const RoundBoard: React.FC = () => {
 
   return (
     <WrapperCard className="w-full">
-      <div className="flex flex-row justify-between uppercase">
+      <div className="flex flex-row justify-between items-center uppercase">
         <div className="text-[24px] leading-[32px] font-medium">
           turn: {defferedGameInfo?.turn ?? "--"}
         </div>
-        <div className="text-[16px] leading-[24px] font-medium">
-          count down: {leftTime && started ? secondToFormat(leftTime) : "--"}
+        <div className="flex flex-col items-center justify-between gap-y-[8px]">
+          <div className="text-[16px] leading-[24px] font-medium">
+            count down: {leftTime && started ? secondToFormat(leftTime) : "--"}
+          </div>
         </div>
       </div>
     </WrapperCard>

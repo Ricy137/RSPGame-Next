@@ -9,19 +9,15 @@ export const useResolveGame = () => {
   const resolveGame = useCallback(
     async (move: number, salt: string) => {
       if (!gameEssential) return;
-      try {
-        if (!window.ethereum) {
-          alert("Please install metamask");
-          return;
-        }
-        const { contractAdd } = gameEssential;
-        const signer = await new BrowserProvider(window.ethereum).getSigner();
-        const RSPContract = new Contract(contractAdd, RSPAbi, signer);
-        let tx = await RSPContract.solve(move, salt);
-        await tx.wait();
-      } catch (err) {
-        console.log(err);
+      if (!window.ethereum) {
+        alert("Please install metamask");
+        return;
       }
+      const { contractAdd } = gameEssential;
+      const signer = await new BrowserProvider(window.ethereum).getSigner();
+      const RSPContract = new Contract(contractAdd, RSPAbi, signer);
+      let tx = await RSPContract.solve(move, salt);
+      await tx.wait();
     },
     [window]
   );

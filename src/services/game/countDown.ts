@@ -22,7 +22,7 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
   ],
   // queryKey: ["countdown"],
   queryFn: async () => {
-    let gameInfo = get(syncGameAtom);
+    let gameInfo = await get(syncGameAtom);
     let gameStatusInfo = gameInfo as GameInfo | null;
     if (!window.ethereum) return null;
     if (!gameStatusInfo) return null;
@@ -36,8 +36,12 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
     const blockTime = await provider.getBlock(blockNumber);
     if (!blockTime) return null;
     //Due to execution time, et. It's better to minus 1 second. Though, it's highly likely the transaction would eventually fail if player moved in the last few seconds, trigger metamask or mining the trasaction still requires time.
+    // let now = Math.floor(new Date().getTime() / 1000);
+    // debugger;
     const leftTime =
       lastAction - parseInt(blockTime.timestamp.toString()) - 1 + 5 * 60;
+    // console.log("left time in atom", leftTime);
     return { turn, started: true, lastAction, leftTime };
   },
+  // refetchInterval: 3000,
 }));

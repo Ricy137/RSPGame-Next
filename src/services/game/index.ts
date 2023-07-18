@@ -34,29 +34,25 @@ export const useStartGame = () => {
 
   const startGame = useCallback(
     async (move: number, j2: string, stake: number) => {
-      try {
-        if (!window.ethereum) {
-          alert("Please install metamask");
-          return;
-        }
-        let salt = randomBytes256();
-        let c1_Hash = solidityPackedKeccak256(
-          ["uint8", "uint256"],
-          [move.toString(), salt.toString()]
-        );
-        const signer = await new BrowserProvider(window.ethereum).getSigner();
-        const RSPContract = new ContractFactory(RSPAbi, RSPBytecode, signer);
-        const tx = await RSPContract.deploy(c1_Hash, j2, {
-          value: parseEther(stake.toString()),
-        });
-        await tx.waitForDeployment();
-        const address = await tx.getAddress();
-        // let lastAction = await (tx as Contract).lastAction();
-        setAdd({ contractAdd: address.toString(), salt: salt.toString() });
-        router.push("/result");
-      } catch (err) {
-        console.log(err);
+      if (!window.ethereum) {
+        alert("Please install metamask");
+        return;
       }
+      let salt = randomBytes256();
+      let c1_Hash = solidityPackedKeccak256(
+        ["uint8", "uint256"],
+        [move.toString(), salt.toString()]
+      );
+      const signer = await new BrowserProvider(window.ethereum).getSigner();
+      const RSPContract = new ContractFactory(RSPAbi, RSPBytecode, signer);
+      const tx = await RSPContract.deploy(c1_Hash, j2, {
+        value: parseEther(stake.toString()),
+      });
+      await tx.waitForDeployment();
+      const address = await tx.getAddress();
+      // let lastAction = await (tx as Contract).lastAction();
+      setAdd({ contractAdd: address.toString(), salt: salt.toString() });
+      router.push("/firsthand/solving");
     },
     [window.ethereum]
   );
@@ -88,34 +84,30 @@ export const useJoinGame = () => {
   //TODO: May I move it to make it more general?
   const fetchGameInfo = useCallback(
     async (contractAdd: string) => {
-      try {
-        if (!window.ethereum) {
-          alert("Please install metamask");
-          return;
-        }
-        const provider = new BrowserProvider(window.ethereum);
-        let exisitency = await provider.getCode(contractAdd);
-        if (!exisitency)
-          throw Error("no smart contract detected from the provided address!");
-        const RSPContract = new Contract(contractAdd, RSPAbi, provider);
-        const c2 = await RSPContract.c2();
-        const stake = await RSPContract.stake();
-        let lastAction = await RSPContract.lastAction();
-        const status = getGameStatus(
-          !!exisitency,
-          c2.toString(),
-          stake.toString(),
-          lastAction.toString()
-        );
-        return {
-          status,
-          contractAdd,
-          lastAction: parseInt(lastAction.toString()),
-          stake: stake,
-        };
-      } catch (err) {
-        console.log(err);
+      if (!window.ethereum) {
+        alert("Please install metamask");
+        return;
       }
+      const provider = new BrowserProvider(window.ethereum);
+      let exisitency = await provider.getCode(contractAdd);
+      if (!exisitency)
+        throw Error("no smart contract detected from the provided address!");
+      const RSPContract = new Contract(contractAdd, RSPAbi, provider);
+      const c2 = await RSPContract.c2();
+      const stake = await RSPContract.stake();
+      let lastAction = await RSPContract.lastAction();
+      const status = getGameStatus(
+        !!exisitency,
+        c2.toString(),
+        stake.toString(),
+        lastAction.toString()
+      );
+      return {
+        status,
+        contractAdd,
+        lastAction: parseInt(lastAction.toString()),
+        stake: stake,
+      };
     },
     [window]
   );

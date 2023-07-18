@@ -16,14 +16,19 @@ export const [resultAtom] = atomsWithQuery((get) => ({
         `https://api-goerli.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
       );
       const data = await res.json();
+      debugger;
       const { result } = data;
       let addresses: string[] = [];
       addresses = result.map((item: any) => {
         return item.to as string;
       });
+      debugger;
       return addresses;
     } catch (err) {
       console.log(err);
     }
   },
+  // refetchOnWindowFocus: true,
+  retryDelay: 1000,
+  retry: 5,
 }));
