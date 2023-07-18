@@ -21,7 +21,7 @@ export const [, playAtom] = atomsWithMutation((get) => ({
         signer
       );
       let tx = await RSPContract.play(move, { value: stake });
-      let res = await tx.wait();
+      await tx.wait();
     } catch (err) {
       console.log(err);
     }

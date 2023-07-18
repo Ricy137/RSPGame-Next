@@ -1,7 +1,10 @@
 import { atomsWithQuery } from "jotai-tanstack-query";
 import { BrowserProvider } from "ethers";
-import { syncGameAtom } from ".";
-import { GameInfo, Processing_Status } from ".";
+import gameEssentialAtom, {
+  GameInfo,
+  syncGameAtom,
+  Processing_Status,
+} from ".";
 
 export interface CountDownInfo {
   turn: "first hand" | "second hand";
@@ -11,8 +14,13 @@ export interface CountDownInfo {
 }
 
 export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
-  // queryKey: ["countdown", get(gameInfoAtom)],
-  queryKey: ["countdown", get(syncGameAtom)],
+  queryKey: [
+    "countdown",
+    (get(syncGameAtom) as GameInfo).lastAction,
+    (get(syncGameAtom) as GameInfo).status,
+    get(gameEssentialAtom)?.contractAdd,
+  ],
+  // queryKey: ["countdown"],
   queryFn: async () => {
     let gameInfo = get(syncGameAtom);
     let gameStatusInfo = gameInfo as GameInfo | null;

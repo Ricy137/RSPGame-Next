@@ -3,12 +3,18 @@ import { useAtomValue } from "jotai";
 import ToolTip from "@/components/Tooltip";
 import { QuestionIcon } from "@/components/Icons";
 import { WrapperCard } from "@/components/Card";
-import gameEssentialAtom from "@/services/game";
+import gameEssentialAtom, { syncGameAtom } from "@/services/game";
+import FirstHandSolvingForm from "./FirstHandSolvingFrom";
 
 const FirstHandSolving: React.FC = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);
+  const data = useAtomValue(syncGameAtom);
+  if (data?.status === "J1Solving") {
+    return <FirstHandSolvingForm />;
+  }
+
   return (
-    <WrapperCard className="flex flex-col gap-y-[24px] w-full">
+    <WrapperCard className="flex flex-col gap-y-[24px] grow w-full">
       <div className="text-[24px] leading-[32px] font-medium uppercase">
         Waiting for the second hand to play
       </div>

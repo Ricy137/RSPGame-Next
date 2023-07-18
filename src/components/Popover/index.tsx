@@ -34,7 +34,7 @@ interface ArrowProps
 export type InteractionProps = UseHoverProps | UseClickProps | UseFocusProps;
 
 export interface PopoverProps extends PropsWithChildren {
-  Content: React.ReactNode | Function;
+  Content: React.ReactNode;
   options?: Partial<UseFloatingOptions>;
   trigger?: "click" | "hover" | "focus";
   controledOpen?: boolean;
@@ -110,7 +110,7 @@ const Popover: React.FC<PopoverProps> = ({
           {hasArrow && (
             <FloatingArrow ref={arrowRef} context={context} {...arrowProps} />
           )}
-          {typeof Content === "function" ? <Content /> : Content}
+          <>{Content}</>
         </div>
       )}
     </>

@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Provider } from "jotai";
 import { useAtom } from "jotai";
 import { accountsAtom } from "@/services/accounts";
@@ -33,7 +34,16 @@ const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 const GameInfoWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const router = useRouter();
   const [data] = useAtom(syncGameAtom);
+
+  useEffect(() => {
+    if (!data) return;
+    const { status } = data;
+    if (status === "ended") {
+      router.push("/result");
+    }
+  }, [data]);
 
   return <>{children}</>;
 };

@@ -3,7 +3,7 @@ import { atomsWithQuery } from "jotai-tanstack-query";
 import { Contract, BrowserProvider } from "ethers";
 import RSPAbi from "@/utils/contract/abi.json";
 import { getGameStatus } from "@/utils/game";
-import addressAtom from ".";
+import gameEssentialAtom from ".";
 
 export const Game_Status = [
   "notStarted",
@@ -19,9 +19,8 @@ export interface GameInfo {
 }
 
 export const [syncGameAtom] = atomsWithQuery<GameInfo | null>((get) => ({
-  queryKey: ["gameSync", get(addressAtom)],
+  queryKey: ["gameSync", get(gameEssentialAtom)?.contractAdd],
   queryFn: async ({ queryKey: [, contractAdd] }) => {
-    console.log("syncGameAtom", contractAdd);
     if (!contractAdd)
       return {
         status: "notStarted",

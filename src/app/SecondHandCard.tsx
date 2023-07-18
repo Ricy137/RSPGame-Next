@@ -6,6 +6,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import AuthConnect from "@/modules/AuthConnect";
 import { useJoinGame } from "@/services/game";
+import useInTransaction from "@/hooks/useInTransaction";
 
 interface JoinForm {
   contractAddress: string;
@@ -30,12 +31,14 @@ const SecondHandCard: React.FC = () => {
     [joinGame]
   );
 
+  const { loading, handleExecAction } = useInTransaction(onSubmit);
+
   return (
-    <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[300px]">
+    <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[350px]">
       <div className="text-[24px] leading-[32px]">Join as the Second Hand</div>
       <form
         className="flex flex-col items-center gap-y-[24px]"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleExecAction)}
       >
         <div>
           <Input
@@ -44,7 +47,9 @@ const SecondHandCard: React.FC = () => {
           />
         </div>
         <AuthConnect>
-          <Button>Join the game</Button>
+          <Button disabled={loading}>
+            {loading ? "pending..." : "Join the game"}
+          </Button>
         </AuthConnect>
       </form>
     </WrapperCard>

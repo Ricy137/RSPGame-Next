@@ -1,5 +1,7 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
+import cx from "clsx";
+import useInTransaction from "@/hooks/useInTransaction";
 import MoveBard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import Input from "@/components/Input";
@@ -22,21 +24,21 @@ const FirstHand: React.FC = () => {
   } = useForm<StartForm>();
   const { startGame } = useStartGame();
 
-  const onSubmit: SubmitHandler<StartForm> = useCallback(
-    async ({ move, j2, stake }: StartForm) => {
-      try {
-        await startGame(move, j2, stake);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    []
-  );
+  const onSubmit = useCallback(async ({ move, j2, stake }: StartForm) => {
+    try {
+      await startGame(move, j2, stake);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const { loading, handleExecAction } = useInTransaction(onSubmit);
+
   return (
     <WrapperCard className="w-full">
       <form
         className="flex flex-col items-center gap-y-[24px]"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleExecAction)}
       >
         <MoveBard
           {...register("move", { required: true })}
@@ -67,8 +69,13 @@ const FirstHand: React.FC = () => {
         <AuthConnect>
           <input
             type="submit"
-            value="Create the game and commit you move"
-            className="px-[14px] flex flex-row justify-center items-center h-[32px] whitespace-nowrap cursor-pointer border-[1px] text-[14px] rounded-[8px] leading-[22px] bg-[#111111] text-[#F1F1F3] hover:bg-[#292E41] hover:text-[#F1F1F3]"
+            value={
+              loading ? "pending..." : "Create the game and commit you move"
+            }
+            className={cx(
+              "px-[14px] flex flex-row justify-center items-center h-[32px] whitespace-nowrap cursor-pointer border-[1px] text-[14px] rounded-[8px] leading-[22px] bg-[#111111] text-[#F1F1F3] hover:bg-[#292E41] hover:text-[#F1F1F3]",
+              loading && "pointer-events-none cursor-not-allowed opacity-30"
+            )}
           />
         </AuthConnect>
       </form>

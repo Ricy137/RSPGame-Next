@@ -26,22 +26,24 @@ const gameEssentialAtom = atom<GameEssential | null>(null);
 
 export default gameEssentialAtom;
 
+//atom use Mutation for loading control
 export const useStartGame = () => {
-  const [gameInfo, setGameInfo] = useAtom(syncGameAtom);
+  const [gameInfo] = useAtom(syncGameAtom);
+  const router = useRouter();
   const setAdd = useSetAtom(gameEssentialAtom);
 
   const startGame = useCallback(
     async (move: number, j2: string, stake: number) => {
-      if (!window.ethereum) {
-        alert("Please install metamask");
-        return;
-      }
-      let salt = randomBytes256();
-      let c1_Hash = solidityPackedKeccak256(
-        ["uint8", "uint256"],
-        [move.toString(), salt.toString()]
-      );
       try {
+        if (!window.ethereum) {
+          alert("Please install metamask");
+          return;
+        }
+        let salt = randomBytes256();
+        let c1_Hash = solidityPackedKeccak256(
+          ["uint8", "uint256"],
+          [move.toString(), salt.toString()]
+        );
         const signer = await new BrowserProvider(window.ethereum).getSigner();
         const RSPContract = new ContractFactory(RSPAbi, RSPBytecode, signer);
         const tx = await RSPContract.deploy(c1_Hash, j2, {
@@ -51,12 +53,7 @@ export const useStartGame = () => {
         const address = await tx.getAddress();
         // let lastAction = await (tx as Contract).lastAction();
         setAdd({ contractAdd: address.toString(), salt: salt.toString() });
-        // setGameInfo({
-        //   status: "J2Moving",
-        //   salt: salt.toString(),
-        //   lastAction: parseInt(lastAction.toString()),
-        //   stake: stake.toString(),
-        // });
+        router.push("/result");
       } catch (err) {
         console.log(err);
       }
@@ -68,13 +65,12 @@ export const useStartGame = () => {
 };
 
 export const useJoinGame = () => {
-  // const setGameInfo = useSetAtom(gameInfoAtom);
   const router = useRouter();
+  const setAdd = useSetAtom(gameEssentialAtom);
 
   const directByStatus = useCallback((status: string) => {
     switch (status) {
       case "notStarted":
-        router.push("/");
         return;
       case "J2Moving":
         router.push("/secondhand");
@@ -92,36 +88,34 @@ export const useJoinGame = () => {
   //TODO: May I move it to make it more general?
   const fetchGameInfo = useCallback(
     async (contractAdd: string) => {
-      if (!window.ethereum) {
-        alert("Please install metamask");
-        return;
+      try {
+        if (!window.ethereum) {
+          alert("Please install metamask");
+          return;
+        }
+        const provider = new BrowserProvider(window.ethereum);
+        let exisitency = await provider.getCode(contractAdd);
+        if (!exisitency)
+          throw Error("no smart contract detected from the provided address!");
+        const RSPContract = new Contract(contractAdd, RSPAbi, provider);
+        const c2 = await RSPContract.c2();
+        const stake = await RSPContract.stake();
+        let lastAction = await RSPContract.lastAction();
+        const status = getGameStatus(
+          !!exisitency,
+          c2.toString(),
+          stake.toString(),
+          lastAction.toString()
+        );
+        return {
+          status,
+          contractAdd,
+          lastAction: parseInt(lastAction.toString()),
+          stake: stake,
+        };
+      } catch (err) {
+        console.log(err);
       }
-      const provider = new BrowserProvider(window.ethereum);
-      let exisitency = await provider.getCode(contractAdd);
-      if (!exisitency)
-        throw Error("no smart contract detected from the provided address!");
-      const RSPContract = new Contract(contractAdd, RSPAbi, provider);
-      const c2 = await RSPContract.c2();
-      const stake = await RSPContract.stake();
-      let lastAction = await RSPContract.lastAction();
-      const status = getGameStatus(
-        !!exisitency,
-        c2.toString(),
-        stake.toString(),
-        lastAction.toString()
-      );
-      // setGameInfo({
-      //   status,
-      //   contractAdd,
-      //   lastAction: parseInt(lastAction.toString()),
-      //   stake: stake,
-      // });
-      return {
-        status,
-        contractAdd,
-        lastAction: parseInt(lastAction.toString()),
-        stake: stake,
-      };
     },
     [window]
   );
@@ -129,15 +123,18 @@ export const useJoinGame = () => {
   const joinGame = useCallback(
     async (contractAdd: string) => {
       const fetchedInfo = await fetchGameInfo(contractAdd);
+      setAdd({ contractAdd: contractAdd });
       if (!fetchedInfo) return;
       directByStatus(fetchedInfo.status);
     },
     [fetchGameInfo]
   );
 
-  return { joinGame, directByStatus };
+  return { joinGame, directByStatus, fetchGameInfo };
 };
 
 export * from "./countDown";
 export * from "./play";
 export * from "./syncGame";
+export * from "./resume";
+export * from "./resolve";

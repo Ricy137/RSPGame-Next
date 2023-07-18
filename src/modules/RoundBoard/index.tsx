@@ -8,10 +8,11 @@ import { secondToFormat } from "@/utils/time";
 const RoundBoard: React.FC = () => {
   const [gameInfo] = useAtom(countDownAtom);
   const defferedGameInfo = useDeferredValue(gameInfo);
+  const started = defferedGameInfo?.started;
   const endTime =
     new Date().getTime() + (defferedGameInfo?.leftTime ?? 0) * 1000;
-  const [leftTime, setLeftTime] = useState<number>(
-    defferedGameInfo?.leftTime ?? 0
+  const [leftTime, setLeftTime] = useState<number | undefined>(
+    defferedGameInfo?.leftTime
   );
 
   const refreshTime = useCallback(() => {
@@ -26,6 +27,11 @@ const RoundBoard: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    if (!defferedGameInfo) return;
+    setLeftTime(defferedGameInfo.leftTime);
+  }, [defferedGameInfo, defferedGameInfo?.leftTime]);
+
   return (
     <WrapperCard className="w-full">
       <div className="flex flex-row justify-between uppercase">
@@ -33,7 +39,7 @@ const RoundBoard: React.FC = () => {
           turn: {defferedGameInfo?.turn ?? "--"}
         </div>
         <div className="text-[16px] leading-[24px] font-medium">
-          count down: {defferedGameInfo ? secondToFormat(leftTime) : "--"}
+          count down: {leftTime && started ? secondToFormat(leftTime) : "--"}
         </div>
       </div>
     </WrapperCard>
@@ -43,9 +49,9 @@ const RoundBoard: React.FC = () => {
 export const RoundBoardLoading: React.FC = () => (
   <WrapperCard className="w-full">
     <div className="flex flex-row justify-between uppercase">
-      <div className="text-[24px] leading-[32px] font-medium">turn: "--"</div>
+      <div className="text-[24px] leading-[32px] font-medium">turn: --</div>
       <div className="text-[16px] leading-[24px] font-medium">
-        count down: "--"
+        count down: --
       </div>
     </div>
   </WrapperCard>

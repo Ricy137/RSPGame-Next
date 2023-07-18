@@ -1,7 +1,4 @@
-import Link from "next/link";
-import { WrapperCard } from "@/components/Card";
-import Button from "@/components/Button";
-import AuthConnect from "@/modules/AuthConnect";
+import FirstHandCard from "./FirstHandCard";
 import SecondHandCard from "./SecondHandCard";
 
 export default function Home() {
@@ -14,16 +11,3 @@ export default function Home() {
     </main>
   );
 }
-
-const FirstHandCard: React.FC = () => {
-  return (
-    <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[300px]">
-      <div className="text-[24px] leading-[32px]">Join as Second Hand</div>
-      <AuthConnect>
-        <Link href="/firsthand">
-          <Button>Create and start the game</Button>
-        </Link>
-      </AuthConnect>
-    </WrapperCard>
-  );
-};
