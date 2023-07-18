@@ -34,6 +34,7 @@ export const useStartGame = () => {
 
   const startGame = useCallback(
     async (move: number, j2: string, stake: number) => {
+      if (typeof window === "undefined") return;
       if (!window.ethereum) {
         alert("Please install metamask");
         return;
@@ -54,7 +55,7 @@ export const useStartGame = () => {
       setAdd({ contractAdd: address.toString(), salt: salt.toString() });
       router.push("/firsthand/solving");
     },
-    [window.ethereum]
+    []
   );
 
   return { gameInfo, startGame };
@@ -82,35 +83,33 @@ export const useJoinGame = () => {
     }
   }, []);
   //TODO: May I move it to make it more general?
-  const fetchGameInfo = useCallback(
-    async (contractAdd: string) => {
-      if (!window.ethereum) {
-        alert("Please install metamask");
-        return;
-      }
-      const provider = new BrowserProvider(window.ethereum);
-      let exisitency = await provider.getCode(contractAdd);
-      if (!exisitency)
-        throw Error("no smart contract detected from the provided address!");
-      const RSPContract = new Contract(contractAdd, RSPAbi, provider);
-      const c2 = await RSPContract.c2();
-      const stake = await RSPContract.stake();
-      let lastAction = await RSPContract.lastAction();
-      const status = getGameStatus(
-        !!exisitency,
-        c2.toString(),
-        stake.toString(),
-        lastAction.toString()
-      );
-      return {
-        status,
-        contractAdd,
-        lastAction: parseInt(lastAction.toString()),
-        stake: stake,
-      };
-    },
-    [window]
-  );
+  const fetchGameInfo = useCallback(async (contractAdd: string) => {
+    if (typeof window === "undefined") return;
+    if (!window.ethereum) {
+      alert("Please install metamask");
+      return;
+    }
+    const provider = new BrowserProvider(window.ethereum);
+    let exisitency = await provider.getCode(contractAdd);
+    if (!exisitency)
+      throw Error("no smart contract detected from the provided address!");
+    const RSPContract = new Contract(contractAdd, RSPAbi, provider);
+    const c2 = await RSPContract.c2();
+    const stake = await RSPContract.stake();
+    let lastAction = await RSPContract.lastAction();
+    const status = getGameStatus(
+      !!exisitency,
+      c2.toString(),
+      stake.toString(),
+      lastAction.toString()
+    );
+    return {
+      status,
+      contractAdd,
+      lastAction: parseInt(lastAction.toString()),
+      stake: stake,
+    };
+  }, []);
 
   const joinGame = useCallback(
     async (contractAdd: string) => {

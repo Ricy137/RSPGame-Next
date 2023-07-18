@@ -27,7 +27,6 @@ const SecondHand: React.FC = () => {
 
   const onSubmit = useCallback(async (formData: PlayForm) => {
     try {
-      debugger;
       await mutate([formData.move]);
       reset();
       router.push("/secondhand/solving");

@@ -23,6 +23,7 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
   // queryKey: ["countdown"],
   queryFn: async () => {
     let gameInfo = await get(syncGameAtom);
+    if (typeof window === "undefined") return null;
     let gameStatusInfo = gameInfo as GameInfo | null;
     if (!window.ethereum) return null;
     if (!gameStatusInfo) return null;

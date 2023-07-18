@@ -5,6 +5,7 @@ import { atomsWithMutation } from "jotai-tanstack-query";
 export const [, accountsAtom] = atomsWithMutation(() => ({
   mutationKey: ["accounts"],
   mutationFn: async ({ type }: { type: "initial" | "connect" }) => {
+    if (typeof window === "undefined") return [];
     if (!window.ethereum) {
       alert("Please install MetaMask");
       return [];

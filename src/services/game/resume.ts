@@ -27,14 +27,11 @@ export const useResumeGame = () => {
       //   return;
     }
   }, []);
-  const resumeGame = useCallback(
-    async (contractAdd: string) => {
-      setAdd({ contractAdd });
-      let gameInfo = await fetchGameInfo(contractAdd);
-      if (!gameInfo) return;
-      directByStatus(gameInfo.status);
-    },
-    [window]
-  );
+  const resumeGame = useCallback(async (contractAdd: string) => {
+    setAdd({ contractAdd });
+    let gameInfo = await fetchGameInfo(contractAdd);
+    if (!gameInfo) return;
+    directByStatus(gameInfo.status);
+  }, []);
   return { resumeGame };
 };

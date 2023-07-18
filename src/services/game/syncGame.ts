@@ -1,4 +1,3 @@
-import { atom } from "jotai";
 import { atomsWithQuery } from "jotai-tanstack-query";
 import { Contract, BrowserProvider } from "ethers";
 import RSPAbi from "@/utils/contract/abi.json";
@@ -27,6 +26,7 @@ export const [syncGameAtom] = atomsWithQuery<GameInfo | null>((get) => ({
         lastAction: 0,
         stake: "0",
       };
+    if (typeof window === "undefined") return null;
     if (!window.ethereum) {
       alert("Please install metamask");
       return null;

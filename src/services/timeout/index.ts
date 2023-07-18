@@ -16,6 +16,7 @@ export const useTimeout = () => {
     const gameEssential = useAtomValue(gameEssentialAtom);
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
+    if (typeof window === "undefined") return;
     if (!window.ethereum) {
       alert("Please install metamask");
       return;
@@ -25,12 +26,14 @@ export const useTimeout = () => {
     const tx = await RPSContract.j1Timeout();
     await tx.wait();
     return tx.hash;
-  }, [window]);
+  }, []);
 
   const j2Timeout = useCallback(async () => {
     const gameEssential = useAtomValue(gameEssentialAtom);
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
+    //to avoid error during server pre-rendering
+    if (typeof window === "undefined") return;
     if (!window.ethereum) {
       alert("Please install metamask");
       return;
@@ -40,7 +43,7 @@ export const useTimeout = () => {
     const tx = await RPSContract.j2Timeout();
     await tx.wait();
     return tx.hash;
-  }, [window]);
+  }, []);
 
   return { j1Timeout, j2Timeout };
 };

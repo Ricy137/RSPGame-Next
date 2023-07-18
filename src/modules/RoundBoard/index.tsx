@@ -15,7 +15,6 @@ const RoundBoard: React.FC = () => {
   const [leftTime, setLeftTime] = useState<number | undefined>(
     defferedGameInfo?.leftTime
   );
-  console.log("leftTime", leftTime);
 
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
