@@ -51,9 +51,6 @@ const Result: React.FC = () => {
           <Button disabled={loading} onClick={handleExecAction}>
             Refetch data
           </Button>
-          <Link href="/">
-            <Button>back to landing</Button>
-          </Link>
         </>
       ) : (
         <Link href="/">
