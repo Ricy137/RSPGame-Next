@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
-import MoveBard from "@/modules/MoveBoard";
+import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import Input from "@/components/Input";
 import { WrapperCard } from "@/components/Card";
@@ -43,7 +43,7 @@ const FirstHand: React.FC = () => {
         className="flex flex-col items-center gap-y-[24px]"
         onSubmit={handleSubmit(handleExecAction)}
       >
-        <MoveBard
+        <MoveBoard
           {...register("move", { required: true })}
           setValue={setValue}
         />
@@ -59,7 +59,7 @@ const FirstHand: React.FC = () => {
         </div>
         <div className="flex flex-row items-center gap-x-[8px]">
           <Input
-            title="Staket amount in ether:"
+            title="Stake amount in ether:"
             type="number"
             lableClassName="w-[300px] text-end"
             {...register("stake", {

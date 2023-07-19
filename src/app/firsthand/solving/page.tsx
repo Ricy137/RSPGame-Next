@@ -28,7 +28,7 @@ const FirstHandSolving: React.FC = () => {
       </div>
       <div className="flex flex-row items-center gap-x-[8px]">
         Salt &#40; don&#39;t leak! &#41;
-        <ToolTip text="Secrete variable only existed locally. Only useful for the first hand to resume game.">
+        <ToolTip text="Secrete variable only existed locally.">
           <QuestionIcon />
         </ToolTip>
         {": "}

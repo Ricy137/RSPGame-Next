@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import { WrapperCard } from "@/components/Card";
-import MoveBard from "@/modules/MoveBoard";
+import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { playAtom } from "@/services/game";
 import { useCallback } from "react";
@@ -47,7 +47,7 @@ const SecondHand: React.FC = () => {
         className="flex flex-col items-center gap-y-[24px]"
         onSubmit={handleSubmit(handleExecAction)}
       >
-        <MoveBard
+        <MoveBoard
           {...register("move", { required: true })}
           setValue={setValue}
         />

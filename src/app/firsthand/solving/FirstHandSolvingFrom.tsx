@@ -5,6 +5,7 @@ import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import { WrapperCard } from "@/components/Card";
 import Input from "@/components/Input";
+import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { useResolveGame } from "@/services/game";
 
@@ -20,6 +21,7 @@ const FirstHandSolvingForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<SolveForm>();
   const onSubmit = useCallback(async ({ move, salt }: SolveForm) => {
     try {
@@ -39,21 +41,17 @@ const FirstHandSolvingForm: React.FC = () => {
         className="flex flex-col items-center gap-y-[24px]"
         onSubmit={handleSubmit(handleExecAction)}
       >
-        <div className="flex flex-row items-center gap-x-[8px]">
-          <Input
-            title="Move:"
-            type="number"
-            lableClassName="w-[100px] text-end"
-            {...register("move", {
-              required: true,
-            })}
+        <div className="flex flex-col items-center gap-y-[8px]">
+          Enter your move:
+          <MoveBoard
+            {...register("move", { required: true })}
+            setValue={setValue}
           />
         </div>
         <div className="flex flex-row items-center gap-x-[8px]">
           <Input
             title="Salt:"
             type="text"
-            lableClassName="w-[100px] text-end"
             {...register("salt", {
               required: true,
             })}

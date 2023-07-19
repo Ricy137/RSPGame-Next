@@ -45,7 +45,7 @@ const MoveItem: React.FC<MoveItemProps> = ({
   );
 };
 
-const MoveBard = forwardRef<
+const MoveBoard = forwardRef<
   HTMLSelectElement,
   ReturnType<UseFormRegister<any>> & { setValue: UseFormSetValue<any> }
 >(({ setValue, onChange, onBlur, name, ...props }, _forwardRef) => {
@@ -59,6 +59,7 @@ const MoveBard = forwardRef<
 
   return (
     <>
+      <div>Default move: Rock</div>
       <div className="w-full grid grid-cols-5 items-center">
         <select
           // hidden
@@ -88,4 +89,4 @@ const MoveBard = forwardRef<
   );
 });
 
-export default MoveBard;
+export default MoveBoard;

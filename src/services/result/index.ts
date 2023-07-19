@@ -18,6 +18,7 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
     );
     const data = await res.json();
     if (!data.result || data.result.length <= 0) throw new Error("No result");
+    // debugger;
     const { result } = data;
     let addresses: string[] = [];
     addresses = result.map((item: any) => {
@@ -31,5 +32,5 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
   // refetchOnWindowFocus: true,
   // refetchInterval: 1500,
   retryDelay: 1000,
-  retry: 5,
+  retry: 10,
 }));
