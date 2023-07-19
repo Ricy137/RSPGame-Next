@@ -39,6 +39,11 @@ export const useStartGame = () => {
         alert("Please install metamask");
         return;
       }
+      let network = window.ethereum.networkVersion;
+      if (network !== "5") {
+        alert("Please change your network to goerli");
+        return;
+      }
       let salt = randomBytes256();
       let c1_Hash = solidityPackedKeccak256(
         ["uint8", "uint256"],
@@ -89,6 +94,11 @@ export const useJoinGame = () => {
       alert("Please install metamask");
       return;
     }
+    // let network = window.ethereum.networkVersion;
+    // if (network !== "5") {
+    //   alert("Please change your network to goerli");
+    //   return null;
+    // }
     const provider = new BrowserProvider(window.ethereum);
     let exisitency = await provider.getCode(contractAdd);
     if (!exisitency)

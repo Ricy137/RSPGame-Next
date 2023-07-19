@@ -10,6 +10,11 @@ export const [, accountsAtom] = atomsWithMutation(() => ({
       alert("Please install MetaMask");
       return [];
     }
+    let network = window.ethereum.networkVersion;
+    if (network !== "5") {
+      alert("Please change your network to goerli");
+      return [];
+    }
     if (type === "initial") {
       const accounts = await window.ethereum.request({
         method: "eth_accounts",

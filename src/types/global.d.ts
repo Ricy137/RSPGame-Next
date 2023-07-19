@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 
 interface Ethereum extends ethers.BrowserProvider {
+  networkVersion: string | undefined;
   request: (args: {
     method: string;
     params?: unknown[] | object;

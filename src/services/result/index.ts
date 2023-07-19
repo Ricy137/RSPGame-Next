@@ -5,13 +5,14 @@ import gameEssentialAtom, { syncGameAtom, GameInfo } from "../game";
 export const [resultAtom] = atomsWithQuery((get) => ({
   queryKey: [
     "result",
-    (get(syncGameAtom) as GameInfo)?.status,
-    get(gameEssentialAtom)?.contractAdd,
+    // (get(syncGameAtom) as GameInfo)?.status,
+    // get(gameEssentialAtom)?.contractAdd,
   ],
   queryFn: async () => {
     try {
+      if (typeof window === "undefined") return null;
       const contractAdd = get(gameEssentialAtom)?.contractAdd;
-      if (!contractAdd) return;
+      if (!contractAdd) return null;
       const res = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
       );

@@ -21,6 +21,11 @@ export const useTimeout = () => {
       alert("Please install metamask");
       return;
     }
+    let network = window.ethereum.networkVersion;
+    if (network !== "5") {
+      alert("Please change your network to goerli");
+      return null;
+    }
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
     const tx = await RPSContract.j1Timeout();
@@ -37,6 +42,11 @@ export const useTimeout = () => {
     if (!window.ethereum) {
       alert("Please install metamask");
       return;
+    }
+    let network = window.ethereum.networkVersion;
+    if (network !== "5") {
+      alert("Please change your network to goerli");
+      return null;
     }
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
