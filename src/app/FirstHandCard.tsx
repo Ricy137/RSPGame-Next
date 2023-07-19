@@ -1,7 +1,9 @@
 "use client";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useSetAtom } from "jotai";
 import { WrapperCard } from "@/components/Card";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -30,6 +32,7 @@ const FirstHandCard: React.FC = () => {
       if (err instanceof Error) alert(err?.message);
     }
   }, []);
+
   return (
     <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[350px]">
       <div className="text-[24px] leading-[32px]">Join as First Hand</div>

@@ -1,13 +1,14 @@
 "use client";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSetAtom } from "jotai";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import Input from "@/components/Input";
 import { WrapperCard } from "@/components/Card";
-import { useStartGame } from "@/services/game";
-import { useCallback } from "react";
+import gameEssentialAtom, { useStartGame } from "@/services/game";
 
 interface StartForm {
   move: number;
@@ -16,6 +17,7 @@ interface StartForm {
 }
 
 const FirstHand: React.FC = () => {
+  const setGameEssential = useSetAtom(gameEssentialAtom);
   const {
     register,
     handleSubmit,
@@ -36,6 +38,10 @@ const FirstHand: React.FC = () => {
   }, []);
 
   const { loading, handleExecAction } = useInTransaction(onSubmit);
+
+  useEffect(() => {
+    setGameEssential(null);
+  }, []);
 
   return (
     <WrapperCard className="w-full">

@@ -15,10 +15,13 @@ const RoundBoard: React.FC = () => {
   const [leftTime, setLeftTime] = useState<number | undefined>(
     defferedGameInfo?.leftTime
   );
+  console.log("leftTime", leftTime);
 
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
+    console.log("now", now);
     const diff = endTime - now;
+    console.log("diff", diff);
     setLeftTime(Math.floor(diff / 1000));
   }, [endTime]);
 
@@ -26,7 +29,7 @@ const RoundBoard: React.FC = () => {
     if (!defferedGameInfo || !leftTime || leftTime < 0) return;
     const intervalId = setInterval(refreshTime, 1000);
     return () => clearInterval(intervalId);
-  }, [leftTime]);
+  }, [defferedGameInfo]);
 
   useEffect(() => {
     if (!defferedGameInfo) return;

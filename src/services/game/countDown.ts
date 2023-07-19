@@ -46,7 +46,7 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
     // debugger;
     const leftTime =
       lastAction - parseInt(blockTime.timestamp.toString()) - 1 + 5 * 60;
-    // console.log("left time in atom", leftTime);
+    console.log("left time in atom", leftTime);
     return { turn, started: true, lastAction, leftTime };
   },
   // refetchInterval: 3000,
