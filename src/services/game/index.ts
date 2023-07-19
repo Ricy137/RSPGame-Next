@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { atom, useAtom, useSetAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import {
   solidityPackedKeccak256,
   ContractFactory,
@@ -22,7 +23,10 @@ export interface GameEssential {
   contractAdd: string;
   salt?: string;
 }
-const gameEssentialAtom = atom<GameEssential | null>(null);
+const gameEssentialAtom = atomWithStorage<GameEssential | null>(
+  "gameEssential",
+  null
+);
 
 export default gameEssentialAtom;
 
