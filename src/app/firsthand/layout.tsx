@@ -3,7 +3,7 @@ import RoundBoard, { RoundBoardLoading } from "@/modules/RoundBoard";
 
 const FirstHandLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="py-[40px] flex flex-col items-center min-h-screen">
+    <div className="py-[40px] flex flex-col items-center min-h-screen w-full">
       <div className="flex flex-col items-center gap-y-[24px] grow w-4/5">
         <Suspense fallback={<RoundBoardLoading />}>
           <RoundBoard />

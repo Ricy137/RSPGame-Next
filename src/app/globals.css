@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen min-w-[1280px] bg-[#F1F1F3];
+  @apply flex flex-row justify-center min-h-screen min-w-[1280px] bg-[#F1F1F3];
 }

@@ -26,31 +26,36 @@ export const [syncGameAtom] = atomsWithQuery<GameInfo | null>((get) => ({
         lastAction: 0,
         stake: "0",
       };
-    if (typeof window === "undefined") return null;
-    if (!window.ethereum) {
-      alert("Please install metamask");
+    try {
+      if (typeof window === "undefined") return null;
+      if (!window.ethereum) {
+        alert("Please install metamask");
+        return null;
+      }
+      const provider = new BrowserProvider(window.ethereum);
+      let exisitency = await provider.getCode(contractAdd as string);
+      if (!exisitency)
+        throw Error("no smart contract detected from the provided address!");
+      const RSPContract = new Contract(contractAdd as string, RSPAbi, provider);
+      const c2 = await RSPContract.c2();
+      const stake = await RSPContract.stake();
+      let lastAction = await RSPContract.lastAction();
+      const status = getGameStatus(
+        !!exisitency,
+        c2.toString(),
+        stake.toString(),
+        lastAction.toString()
+      );
+      return {
+        status,
+        contractAdd,
+        lastAction: parseInt(lastAction.toString()),
+        stake: stake,
+      };
+    } catch (err) {
+      console.log(err);
       return null;
     }
-    const provider = new BrowserProvider(window.ethereum);
-    let exisitency = await provider.getCode(contractAdd as string);
-    if (!exisitency)
-      throw Error("no smart contract detected from the provided address!");
-    const RSPContract = new Contract(contractAdd as string, RSPAbi, provider);
-    const c2 = await RSPContract.c2();
-    const stake = await RSPContract.stake();
-    let lastAction = await RSPContract.lastAction();
-    const status = getGameStatus(
-      !!exisitency,
-      c2.toString(),
-      stake.toString(),
-      lastAction.toString()
-    );
-    return {
-      status,
-      contractAdd,
-      lastAction: parseInt(lastAction.toString()),
-      stake: stake,
-    };
   },
   refetchInterval: 1000,
 }));
