@@ -43,6 +43,7 @@ const RoundBoard: React.FC = () => {
           <div className="text-[16px] leading-[24px] font-medium">
             count down: {leftTime && started ? secondToFormat(leftTime) : "--"}
           </div>
+          <TimeoutBtn />
         </div>
       </div>
     </WrapperCard>

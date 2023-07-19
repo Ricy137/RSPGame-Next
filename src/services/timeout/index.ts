@@ -12,8 +12,8 @@ export const timeoutAtom = atom(async (get) => {
 });
 
 export const useTimeout = () => {
+  const gameEssential = useAtomValue(gameEssentialAtom);
   const j1Timeout = useCallback(async () => {
-    const gameEssential = useAtomValue(gameEssentialAtom);
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
     if (typeof window === "undefined") return;
@@ -34,7 +34,6 @@ export const useTimeout = () => {
   }, []);
 
   const j2Timeout = useCallback(async () => {
-    const gameEssential = useAtomValue(gameEssentialAtom);
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
     //to avoid error during server pre-rendering

@@ -1,27 +1,28 @@
 "use client";
-// import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAtom } from "jotai";
-import Link from "next/link";
 import Button from "@/components/Button";
 import { resultAtom } from "@/services/result";
 import { WrapperCard } from "@/components/Card";
+import useInTransaction from "@/hooks/useInTransaction";
 const Result: React.FC = () => {
-  const [resultDate] = useAtom(resultAtom);
-  // let resultDate: string[] | undefined;
-  // useEffect(() => {
-  //   const [data] = useAtom(resultAtom);
-  //   resultDate = data;
-  // }, []);
-  // if (!resultDate)
-  //   return (
-  //     <div className="flex flex-col items-center gap-y-[24px] w-full">
-  //       <h2>Something went wrong!</h2>
-  //       <Link href="/">
-  //         <Button>Back to landing to resume game data first</Button>
-  //       </Link>
-  //     </div>
-  //   );
-  if (resultDate && resultDate?.length && resultDate.length > 1)
+  const [data, dispatch] = useAtom(resultAtom);
+  const [resultData, setResultData] = useState<string[] | null>();
+
+  useEffect(() => {
+    if (data && data.pages) {
+      let reverse = data.pages.reverse();
+      setResultData(reverse[0]);
+    }
+  }, [data]);
+
+  const handleRefetch = useCallback(async () => {
+    await dispatch({ type: "fetchNextPage" });
+  }, [dispatch]);
+
+  const { loading, handleExecAction } = useInTransaction(handleRefetch);
+
+  if (resultData && resultData?.length && resultData.length > 1)
     return (
       <WrapperCard className="flex flex-col items-center w-full min-h-500px">
         <div className="text-[24px] leading-[32px] font-medium">TIE</div>
@@ -29,16 +30,22 @@ const Result: React.FC = () => {
           stake will be splited and return to:
         </div>
         <div className="text-[16px] leading-[24px]">
-          {resultDate.join(", ")}
+          {resultData.join(", ")}
         </div>
       </WrapperCard>
     );
   return (
-    <WrapperCard className="flex flex-col items-center w-full min-h-500px">
+    <WrapperCard className="flex flex-col items-center gap-y-[24px] w-full min-h-500px">
       <div className="text-[24px] leading-[32px] font-medium">
         WINNER Address:
       </div>
-      <div className="text-[16px] leading-[24px]">{resultDate ?? ""}</div>
+      <div className="text-[16px] leading-[24px]">{resultData ?? ""}</div>
+      <div>
+        It takes a while for the result to be fetched, you can try to refetch
+      </div>
+      <Button disabled={loading} onClick={handleExecAction}>
+        Refetch data
+      </Button>
     </WrapperCard>
   );
 };

@@ -37,7 +37,7 @@ const J2TimeoutBtn: React.FC = () => {
   return loading ? (
     <Button disabled={true}>pending</Button>
   ) : (
-    <Button>withdraw&#40; for j1 &#41;</Button>
+    <Button onClick={handleExecAction}>withdraw&#40; for j1 &#41;</Button>
   );
 };
 

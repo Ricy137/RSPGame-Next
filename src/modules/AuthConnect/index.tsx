@@ -15,7 +15,6 @@ const AuthConnect: React.FC<
     e.preventDefault();
     mutate([{ type: "connect" }]);
   }, []);
-
   if (!accounts.data || accounts.data.length == 0)
     return <Button onClick={connect}>Connect Wallet</Button>;
 
