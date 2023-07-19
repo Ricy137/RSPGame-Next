@@ -17,7 +17,7 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
       `https://api-goerli.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
     );
     const data = await res.json();
-    if (!data.result) throw new Error("No result");
+    if (!data.result || data.result.length <= 0) throw new Error("No result");
     const { result } = data;
     let addresses: string[] = [];
     addresses = result.map((item: any) => {

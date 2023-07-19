@@ -1,12 +1,13 @@
 import { useCallback } from "react";
 import { atom, useAtomValue } from "jotai";
-import { BrowserProvider, parseEther, Contract } from "ethers";
+import { BrowserProvider, Contract } from "ethers";
 import RSPAbi from "@/utils/contract/abi.json";
 import gameEssentialAtom, { countDownAtom } from "../game";
 
 export const timeoutAtom = atom(async (get) => {
+  const gameEssential = get(gameEssentialAtom);
   const countDownInfo = await get(countDownAtom);
-  if (!countDownInfo) return null;
+  if (!countDownInfo || !gameEssential?.contractAdd) return null;
   const { leftTime } = countDownInfo;
   if (leftTime <= 0) return countDownInfo.turn;
 });
