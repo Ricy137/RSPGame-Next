@@ -1,11 +1,14 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import Button from "@/components/Button";
 import { resultAtom } from "@/services/result";
+import gameEssentialAtom from "@/services/game";
 import { WrapperCard } from "@/components/Card";
 import useInTransaction from "@/hooks/useInTransaction";
+import Link from "next/link";
 const Result: React.FC = () => {
+  const gameEssential = useAtomValue(gameEssentialAtom);
   const [data, dispatch] = useAtom(resultAtom);
   const [resultData, setResultData] = useState<string[] | null>();
 
@@ -43,9 +46,20 @@ const Result: React.FC = () => {
       <div>
         It takes a while for the result to be fetched, you can try to refetch
       </div>
-      <Button disabled={loading} onClick={handleExecAction}>
-        Refetch data
-      </Button>
+      {gameEssential && gameEssential.contractAdd ? (
+        <>
+          <Button disabled={loading} onClick={handleExecAction}>
+            Refetch data
+          </Button>
+          <Link href="/">
+            <Button>back to landing</Button>
+          </Link>
+        </>
+      ) : (
+        <Link href="/">
+          <Button>Contract address lost, back to landing page to resume</Button>
+        </Link>
+      )}
     </WrapperCard>
   );
 };

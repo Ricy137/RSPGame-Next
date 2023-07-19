@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { atom, useAtomValue } from "jotai";
 import { BrowserProvider, Contract } from "ethers";
+import { useRouter } from "next/navigation";
 import RSPAbi from "@/utils/contract/abi.json";
 import gameEssentialAtom, { countDownAtom } from "../game";
 
@@ -14,6 +15,7 @@ export const timeoutAtom = atom(async (get) => {
 
 export const useTimeout = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);
+  const router = useRouter();
   const j1Timeout = useCallback(async () => {
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
@@ -31,7 +33,8 @@ export const useTimeout = () => {
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
     const tx = await RPSContract.j1Timeout();
     await tx.wait();
-    return tx.hash;
+    alert("Stake has be returned sucessfully");
+    router.push("/");
   }, []);
 
   const j2Timeout = useCallback(async () => {
@@ -52,7 +55,8 @@ export const useTimeout = () => {
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
     const tx = await RPSContract.j2Timeout();
     await tx.wait();
-    return tx.hash;
+    alert("Stake has be returned sucessfully");
+    router.push("/");
   }, []);
 
   return { j1Timeout, j2Timeout };

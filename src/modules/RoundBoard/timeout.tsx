@@ -27,7 +27,9 @@ const J1TimeoutBtn: React.FC = () => {
   return loading ? (
     <Button disabled={true}>pending</Button>
   ) : (
-    <Button onClick={handleExecAction}>withdraw&#40; for j2 &#41;</Button>
+    <Button onClick={handleExecAction}>
+      timeout, end the game to withdraw
+    </Button>
   );
 };
 
@@ -37,7 +39,9 @@ const J2TimeoutBtn: React.FC = () => {
   return loading ? (
     <Button disabled={true}>pending</Button>
   ) : (
-    <Button onClick={handleExecAction}>withdraw&#40; for j1 &#41;</Button>
+    <Button onClick={handleExecAction}>
+      timeout, end the game to withdraw
+    </Button>
   );
 };
 

@@ -15,13 +15,10 @@ const RoundBoard: React.FC = () => {
   const [leftTime, setLeftTime] = useState<number | undefined>(
     defferedGameInfo?.leftTime
   );
-  console.log("leftTime", leftTime);
 
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
-    console.log("now", now);
     const diff = endTime - now;
-    console.log("diff", diff);
     setLeftTime(Math.floor(diff / 1000));
   }, [endTime]);
 
@@ -44,7 +41,8 @@ const RoundBoard: React.FC = () => {
         </div>
         <div className="flex flex-col items-center justify-between gap-y-[8px]">
           <div className="text-[16px] leading-[24px] font-medium">
-            count down: {leftTime && started ? secondToFormat(leftTime) : "--"}
+            count down &#40;only roughly!&#41;
+            {leftTime && started ? secondToFormat(leftTime) : "--"}
           </div>
           <TimeoutBtn />
         </div>

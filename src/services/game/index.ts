@@ -96,8 +96,7 @@ export const useJoinGame = () => {
     }
     let network = window.ethereum.networkVersion;
     if (network !== "5") {
-      alert("Please change your network to goerli");
-      return null;
+      throw Error("Please change your network to goerli");
     }
     const provider = new BrowserProvider(window.ethereum);
     let exisitency = await provider.getCode(contractAdd);

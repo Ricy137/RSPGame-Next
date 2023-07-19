@@ -17,9 +17,10 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
       `https://api-goerli.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
     );
     const data = await res.json();
-    if (!data.result || data.result.length <= 0) throw new Error("No result");
-    // debugger;
     const { result } = data;
+    if (!result || result.length <= 0 || !(result instanceof Array))
+      // return null;
+      throw new Error("No result");
     let addresses: string[] = [];
     addresses = result.map((item: any) => {
       return item.to as string;
@@ -32,5 +33,5 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
   // refetchOnWindowFocus: true,
   // refetchInterval: 1500,
   retryDelay: 1000,
-  retry: 10,
+  retry: 20,
 }));
