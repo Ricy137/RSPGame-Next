@@ -1,8 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Link from "next/link";
-import Button from "@/components/Button";
 import JotaiProvider from "@/modules/JotaiProvider";
+import Navbar from "@/modules/Navbar";
 
 export const metadata: Metadata = {
   title: "RPS game",
@@ -18,12 +17,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <JotaiProvider>
-          <div className="fixed p-[24px] w-full h-[80px]">
-            <Link href="/">
-              <Button>Back to landing </Button>
-            </Link>
-          </div>
-          {children}
+          <>
+            <Navbar />
+            {children}
+          </>
         </JotaiProvider>
       </body>
     </html>
