@@ -23,14 +23,12 @@ const FirstHand: React.FC = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm<StartForm>();
   const { startGame } = useStartGame();
 
   const onSubmit = useCallback(async ({ move, j2, stake }: StartForm) => {
     try {
       await startGame(move, j2, stake);
-      reset();
     } catch (err) {
       if (err instanceof Error) alert(err?.message);
       console.log(err);

@@ -20,7 +20,6 @@ const SecondHand: React.FC = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm<PlayForm>();
   const [, mutate] = useAtom(playAtom);
   const router = useRouter();
@@ -29,7 +28,6 @@ const SecondHand: React.FC = () => {
     try {
       await mutate([formData.move]);
       router.push("/secondhand/solving");
-      reset();
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);

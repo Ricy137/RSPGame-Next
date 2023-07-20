@@ -20,13 +20,11 @@ const FirstHandSolvingForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
   } = useForm<SolveForm>();
   const onSubmit = useCallback(async ({ move, salt }: SolveForm) => {
     try {
       await resolveGame(move, salt);
-      reset();
     } catch (err) {
       if (err instanceof Error) alert(err?.message);
       console.log(err);

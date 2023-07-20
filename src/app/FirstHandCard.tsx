@@ -19,14 +19,12 @@ const FirstHandCard: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<ResumeForm>();
 
   const onSubmit = useCallback(async (data: ResumeForm) => {
     try {
       const { contractAdd } = data;
       await resumeGame(contractAdd);
-      reset();
     } catch (err) {
       console.log(err);
       if (err instanceof Error) alert(err?.message);
