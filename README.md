@@ -1,8 +1,10 @@
 ## Introduction
 This is a webiste for you and another player to play: https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons
 
-I hope the website provides you the clear processing logic, but you can also watch the guide vedio here:
+I hope the website provides you the clear processing logic, but a vedio below is also provided to guide you:
 
+## Changes
+* Default move is removed, players must choose the move to operate.
 
 https://github.com/Ricy137/RSPGame-Next/assets/97211928/8bde8018-8600-4dd4-b5b6-2d6170dda6dd
 
