@@ -54,5 +54,4 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
         1000;
     return { turn, started: true, lastAction, timeoutStamp };
   },
-  // refetchInterval: 3000,
 }));

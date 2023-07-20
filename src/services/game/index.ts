@@ -52,8 +52,7 @@ export const useStartGame = () => {
       }
       let network = window.ethereum.networkVersion;
       if (network !== "5") {
-        alert("Please change your network to goerli");
-        return;
+        throw new Error("Please change your network to goerli");
       }
       let salt = randomBytes256();
       let c1_Hash = solidityPackedKeccak256(

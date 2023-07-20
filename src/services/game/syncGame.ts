@@ -48,7 +48,6 @@ export const [syncGameAtom] = atomsWithQuery<GameInfo | null>((get) => ({
       );
       return {
         status,
-        contractAdd,
         lastAction: parseInt(lastAction.toString()),
         stake: stake,
       };

@@ -1,17 +1,13 @@
 "use client";
 import { ReactNode, useCallback, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Provider } from "jotai";
 import { useAtom } from "jotai";
 import { accountsAtom } from "@/services/accounts";
-import { syncGameAtom } from "@/services/game";
 
 const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Provider>
-      <AccountWrapper>
-        <GameInfoWrapper>{children}</GameInfoWrapper>
-      </AccountWrapper>
+      <AccountWrapper>{children}</AccountWrapper>
     </Provider>
   );
 };
@@ -30,21 +26,5 @@ const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
       console.log(e);
     }
   }, []);
-  return <>{children}</>;
-};
-
-const GameInfoWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const router = useRouter();
-  const [data] = useAtom(syncGameAtom);
-
-  useEffect(() => {
-    if (!data) return;
-    const { status } = data;
-    if (status === "ended") {
-      //delay the time to jump is because winner data is read from blockchain and it takes time to be updated
-      router.push("/result");
-    }
-  }, [data]);
-
   return <>{children}</>;
 };
