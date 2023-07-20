@@ -1,15 +1,23 @@
 "use client";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useSetAtom } from "jotai";
+import gameEssentialAtom from "@/services/game";
 import Button from "@/components/Button";
 const Navbar: React.FC = () => {
   const pathName = usePathname();
+  const router = useRouter();
+  const setGameEssential = useSetAtom(gameEssentialAtom);
+
+  const handleBack = useCallback(() => {
+    setGameEssential(null);
+    router.push("/");
+  }, []);
+
   return (
     <div className="fixed p-[24px] w-full h-[80px]">
       {pathName !== "/" && (
-        <Link href="/">
-          <Button>Back to landing</Button>
-        </Link>
+        <Button onClick={handleBack}>Back to landing</Button>
       )}
     </div>
   );
