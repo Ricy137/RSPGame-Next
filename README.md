@@ -3,12 +3,7 @@ This is a webiste for you and another player to play: https://en.wikipedia.org/w
 
 I hope the website provides you the clear processing logic, but a vedio below is also provided to guide you:
 
-## Changes
-* Default move is removed, players must choose the move to operate.
-
-https://github.com/Ricy137/RSPGame-Next/assets/97211928/8bde8018-8600-4dd4-b5b6-2d6170dda6dd
-
-
+https://github.com/Ricy137/RSPGame-Next/assets/97211928/4d51e6ad-0d77-4cf1-964a-69faf4178920
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
