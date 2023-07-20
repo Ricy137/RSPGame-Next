@@ -10,30 +10,22 @@ const RoundBoard: React.FC = () => {
   const [gameInfo] = useAtom(countDownAtom);
   const defferedGameInfo = useDeferredValue(gameInfo);
   const started = defferedGameInfo?.started;
-  const endTime =
-    new Date().getTime() + (defferedGameInfo?.leftTime ?? 0) * 1000;
-  const [leftTime, setLeftTime] = useState<number | undefined>(
-    defferedGameInfo?.leftTime
-  );
+  const endTime = defferedGameInfo?.timeoutStamp ?? 0;
+  const [leftTime, setLeftTime] = useState<number | undefined>();
+
   const refreshTime = useCallback(() => {
     const now = new Date().getTime();
     const diff = endTime - now;
     setLeftTime(Math.floor(diff / 1000));
   }, [endTime]);
-  console.log("leftTime", leftTime);
-
-  // useEffect(() => {
-  //   debugger;
-  //   if (!defferedGameInfo || !leftTime || leftTime < 0) return;
-  //   debugger;
-  // }, [defferedGameInfo, defferedGameInfo?.leftTime]);
 
   useEffect(() => {
-    if (!defferedGameInfo) return;
-    setLeftTime(defferedGameInfo.leftTime);
+    if (!defferedGameInfo || !defferedGameInfo.started) return;
+    const now = new Date().getTime();
+    setLeftTime(Math.floor((endTime - now) / 1000));
     const intervalId = setInterval(refreshTime, 1000);
     return () => clearInterval(intervalId);
-  }, [defferedGameInfo, defferedGameInfo?.leftTime]);
+  }, [defferedGameInfo, defferedGameInfo?.timeoutStamp]);
 
   return (
     <WrapperCard className="w-full">
@@ -46,7 +38,12 @@ const RoundBoard: React.FC = () => {
             count down &#40;only roughly!&#41;
             {leftTime && started ? secondToFormat(leftTime) : "--"}
           </div>
-          <TimeoutBtn />
+          {leftTime &&
+            leftTime < 0 &&
+            defferedGameInfo &&
+            defferedGameInfo.started && (
+              <TimeoutBtn timeout={defferedGameInfo.turn} />
+            )}
         </div>
       </div>
     </WrapperCard>

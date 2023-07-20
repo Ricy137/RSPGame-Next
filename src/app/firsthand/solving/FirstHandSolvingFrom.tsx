@@ -44,7 +44,10 @@ const FirstHandSolvingForm: React.FC = () => {
         <div className="flex flex-col items-center gap-y-[8px]">
           Enter your move:
           <MoveBoard
-            {...register("move", { required: true })}
+            {...register("move", {
+              required: true,
+              validate: (value) => value > 0,
+            })}
             setValue={setValue}
           />
         </div>

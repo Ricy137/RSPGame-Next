@@ -5,13 +5,19 @@ import { useRouter } from "next/navigation";
 import RSPAbi from "@/utils/contract/abi.json";
 import gameEssentialAtom, { countDownAtom } from "../game";
 
-export const timeoutAtom = atom(async (get) => {
-  const gameEssential = get(gameEssentialAtom);
-  const countDownInfo = await get(countDownAtom);
-  if (!countDownInfo || !gameEssential?.contractAdd) return null;
-  const { leftTime } = countDownInfo;
-  if (leftTime <= 0) return countDownInfo.turn;
-});
+//TODO:
+// export const timeoutAtom = atom(async (get) => {
+//   const gameEssential = get(gameEssentialAtom);
+//   const countDownInfo = await get(countDownAtom);
+//   debugger;
+//   if (!countDownInfo || !gameEssential?.contractAdd) return null;
+//   const { timeoutStamp } = countDownInfo;
+//   console.log("timeoutStamp", timeoutStamp);
+//   debugger;
+//   const leftTime = Math.floor((timeoutStamp - new Date().getTime()) / 1000);
+//   console.log("leftTime", leftTime);
+//   if (leftTime <= 0) return countDownInfo.turn;
+// });
 
 export const useTimeout = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);

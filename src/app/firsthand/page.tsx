@@ -50,7 +50,10 @@ const FirstHand: React.FC = () => {
         onSubmit={handleSubmit(handleExecAction)}
       >
         <MoveBoard
-          {...register("move", { required: true })}
+          {...register("move", {
+            required: true,
+            validate: (value) => value > 0,
+          })}
           setValue={setValue}
         />
         <div className="flex flex-row items-center gap-x-[8px]">

@@ -48,7 +48,10 @@ const SecondHand: React.FC = () => {
         onSubmit={handleSubmit(handleExecAction)}
       >
         <MoveBoard
-          {...register("move", { required: true })}
+          {...register("move", {
+            required: true,
+            validate: (value) => value > 0,
+          })}
           setValue={setValue}
         />
         <AuthConnect gameInfoRequired={true}>

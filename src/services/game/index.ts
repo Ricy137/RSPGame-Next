@@ -17,7 +17,14 @@ import { syncGameAtom } from "./syncGame";
 
 export const Processing_Status = ["J2Moving", "J1Solving"];
 
-export const Move = ["Rock", "Paper", "Scissors", "Spock", "Lizard"] as const;
+export const Move = [
+  "Null",
+  "Rock",
+  "Paper",
+  "Scissors",
+  "Spock",
+  "Lizard",
+] as const;
 
 export interface GameEssential {
   contractAdd: string;

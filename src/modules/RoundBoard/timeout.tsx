@@ -1,24 +1,14 @@
 "use client";
-import { useAtomValue } from "jotai";
 import useInTransaction from "@/hooks/useInTransaction";
 import Button from "@/components/Button";
-import { timeoutAtom, useTimeout } from "@/services/timeout";
-import { Suspense } from "react";
+import { useTimeout } from "@/services/timeout";
 
-const TimeoutBtnContent: React.FC = () => {
-  const timeout = useAtomValue(timeoutAtom);
-
+const TimeoutBtn: React.FC<{ timeout: "first hand" | "second hand" }> = ({
+  timeout,
+}) => {
   if (timeout === "first hand") return <J1TimeoutBtn />;
   if (timeout === "second hand") return <J2TimeoutBtn />;
   return <></>;
-};
-
-const TimeoutBtn: React.FC = () => {
-  return (
-    <Suspense fallback={<></>}>
-      <TimeoutBtnContent />
-    </Suspense>
-  );
 };
 
 const J1TimeoutBtn: React.FC = () => {

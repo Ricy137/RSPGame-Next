@@ -40,7 +40,7 @@ const MoveItem: React.FC<MoveItemProps> = ({
       )}
     >
       {renderReactNode(icon)}
-      {Move[value - 1]}
+      {Move[value]}
     </div>
   );
 };
@@ -51,6 +51,7 @@ const MoveBoard = forwardRef<
 >(({ setValue, onChange, onBlur, name, ...props }, _forwardRef) => {
   const { ref, ...rest } = props;
   const [selectedValue, setSelectedValue] = useState<number>();
+  console.log("selectedValue", selectedValue);
 
   const onClick = useCallback((newSelectedValue: number) => {
     setValue(name, newSelectedValue);
@@ -59,7 +60,6 @@ const MoveBoard = forwardRef<
 
   return (
     <>
-      <div>Default move: Rock</div>
       <div className="w-full grid grid-cols-5 items-center">
         <select
           // hidden
@@ -69,21 +69,25 @@ const MoveBoard = forwardRef<
           onBlur={onBlur}
           onChange={onChange}
           value={selectedValue}
+          autoComplete="off"
           {...rest}
         >
           {Move.map((move, index) => (
-            <option key={move} value={index + 1} />
+            <option key={move} value={index} />
           ))}
         </select>
-        {Move.map((move, index) => (
-          <MoveItem
-            key={move}
-            value={index + 1}
-            icon={RPSSLIcons[index]}
-            onClick={onClick}
-            selectedValue={selectedValue}
-          />
-        ))}
+        {Move.map((move, index) => {
+          if (index === 0) return;
+          return (
+            <MoveItem
+              key={move}
+              value={index}
+              icon={RPSSLIcons[index - 1]}
+              onClick={onClick}
+              selectedValue={selectedValue}
+            />
+          );
+        })}
       </div>
     </>
   );

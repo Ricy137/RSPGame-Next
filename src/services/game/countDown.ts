@@ -10,14 +10,15 @@ export interface CountDownInfo {
   turn: "first hand" | "second hand";
   started: boolean;
   lastAction: number;
-  leftTime: number;
+  timeoutStamp: number;
+  leftTime?: number;
 }
 
 export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
   queryKey: [
     "countdown",
-    (get(syncGameAtom) as GameInfo).lastAction,
-    (get(syncGameAtom) as GameInfo).status,
+    (get(syncGameAtom) as GameInfo)?.lastAction,
+    (get(syncGameAtom) as GameInfo)?.status,
     get(gameEssentialAtom)?.contractAdd,
   ],
   // queryKey: ["countdown"],
@@ -34,7 +35,12 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
     if (!gameStatusInfo) return null;
     const { status, lastAction } = gameStatusInfo;
     if (!Processing_Status.includes(status))
-      return { turn: "first hand", started: false, lastAction: 0, leftTime: 0 };
+      return {
+        turn: "first hand",
+        started: false,
+        lastAction: 0,
+        timeoutStamp: 0,
+      };
     let turn: "first hand" | "second hand" =
       status === "J2Moving" ? "second hand" : "first hand";
     const provider = new BrowserProvider(window.ethereum);
@@ -42,12 +48,11 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
     const blockTime = await provider.getBlock(blockNumber);
     if (!blockTime) return null;
     //Due to execution time, et. It's better to minus 1 second. Though, it's highly likely the transaction would eventually fail if player moved in the last few seconds, trigger metamask or mining the trasaction still requires time.
-    // let now = Math.floor(new Date().getTime() / 1000);
-    // debugger;
-    const leftTime =
-      lastAction - parseInt(blockTime.timestamp.toString()) - 1 + 5 * 60;
-    // console.log("left time in atom", leftTime);
-    return { turn, started: true, lastAction, leftTime };
+    const timeoutStamp =
+      new Date().getTime() +
+      (lastAction - parseInt(blockTime.timestamp.toString()) - 1 + 5 * 60) *
+        1000;
+    return { turn, started: true, lastAction, timeoutStamp };
   },
   // refetchInterval: 3000,
 }));
