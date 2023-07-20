@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import JotaiProvider from "@/modules/JotaiProvider";
+import NetworkListener from "@/modules/NetworkListen";
 import Navbar from "@/modules/Navbar";
 
 export const metadata: Metadata = {
@@ -17,10 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <JotaiProvider>
-          <>
-            <Navbar />
-            {children}
-          </>
+          <NetworkListener>
+            <>
+              <Navbar />
+              {children}
+            </>
+          </NetworkListener>
         </JotaiProvider>
       </body>
     </html>

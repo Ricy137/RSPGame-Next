@@ -1,22 +1,27 @@
 "use client";
-import { PropsWithChildren, useCallback, MouseEvent } from "react";
+import { PropsWithChildren } from "react";
 import Link from "next/link";
-import { useAtom, useAtomValue } from "jotai";
-import { accountsAtom } from "@/services/accounts";
+import { useAtomValue } from "jotai";
+import {
+  useAccountsAtom,
+  accountsAtom,
+  networkAtom,
+} from "@/services/accounts";
 import gameEssentialAtom from "@/services/game";
 import Button from "@/components/Button";
+import useInTransaction from "@/hooks/useInTransaction";
 
 const AuthConnect: React.FC<
   PropsWithChildren & { gameInfoRequired?: boolean }
 > = ({ children, gameInfoRequired, ...props }) => {
-  const [accounts, mutate] = useAtom(accountsAtom);
+  const { connect } = useAccountsAtom();
+  const accounts = useAtomValue(accountsAtom);
+  const network = useAtomValue(networkAtom);
+  const networkMatch = network === "5";
   const gameEssential = useAtomValue(gameEssentialAtom);
-  const connect = useCallback(async (e: MouseEvent) => {
-    e.preventDefault();
-    mutate([{ type: "connect" }]);
-  }, []);
-  if (!accounts.data || accounts.data.length == 0)
-    return <Button onClick={connect}>Connect Wallet</Button>;
+  const { loading, handleExecAction } = useInTransaction(connect);
+
+  if (accounts && accounts.length > 0 && networkMatch) return <>{children}</>;
 
   if (gameInfoRequired && (!gameEssential || !gameEssential.contractAdd))
     return (
@@ -24,7 +29,12 @@ const AuthConnect: React.FC<
         <Button>Back to landing to resume game data first</Button>
       </Link>
     );
-  return <>{children}</>;
+  return (
+    <Button onClick={handleExecAction} disabled={loading}>
+      {!accounts || (accounts.length === 0 && "Connect Wallet")}
+      {accounts && !networkMatch && "Switch Wallet"}
+    </Button>
+  );
 };
 
 export default AuthConnect;

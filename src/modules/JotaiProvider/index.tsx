@@ -2,7 +2,7 @@
 import { ReactNode, useCallback, useEffect } from "react";
 import { Provider } from "jotai";
 import { useAtom } from "jotai";
-import { accountsAtom } from "@/services/accounts";
+import { useAccountsAtom } from "@/services/accounts";
 
 const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -15,15 +15,14 @@ const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 export default JotaiProvider;
 
 const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [, mutate] = useAtom(accountsAtom);
-  const connect = useCallback(async () => {
-    await mutate([{ type: "initial" }]);
-  }, []);
+  const { initial } = useAccountsAtom();
+
   useEffect(() => {
     try {
-      connect();
+      initial();
     } catch (e) {
       console.log(e);
+      if (e instanceof Error) alert(e?.message);
     }
   }, []);
   return <>{children}</>;
