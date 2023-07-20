@@ -51,7 +51,6 @@ const MoveBoard = forwardRef<
 >(({ setValue, onChange, onBlur, name, ...props }, _forwardRef) => {
   const { ref, ...rest } = props;
   const [selectedValue, setSelectedValue] = useState<number>();
-  console.log("selectedValue", selectedValue);
 
   const onClick = useCallback((newSelectedValue: number) => {
     setValue(name, newSelectedValue);
