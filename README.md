@@ -1,7 +1,11 @@
 ## Introduction
 This is a webiste for you and another player to play: https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons
 
-You can watch the vedio to understand the process here:
+I hope the website provides you the clear processing logic, but you can also watch the guide vedio here:
+
+
+https://github.com/Ricy137/RSPGame-Next/assets/97211928/8bde8018-8600-4dd4-b5b6-2d6170dda6dd
+
 
 
 
