@@ -51,7 +51,8 @@ export default function Error({
       </div>
       <div className="text-[16px] leading-[24px]">{resultData ?? ""}</div>
       <div>
-        It takes a while for the result to be fetched, you can try to refetch
+        It takes a while for the result to be fetched, you can also try to
+        refetch
       </div>
       <Button disabled={loading} onClick={handleExecAction}>
         Refetch data
