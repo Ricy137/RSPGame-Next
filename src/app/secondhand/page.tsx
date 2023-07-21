@@ -52,7 +52,7 @@ const SecondHand: React.FC = () => {
           })}
           setValue={setValue}
         />
-        <AuthConnect gameInfoRequired={true}>
+        <AuthConnect>
           <input
             type="submit"
             value={loading ? "pending" : "Make the move"}
