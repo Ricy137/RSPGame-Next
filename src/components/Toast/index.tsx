@@ -34,7 +34,7 @@ export const useShowToast = () => {
           newToastsAfter = newToastsAfter.filter((item) => item.id !== id);
           return newToastsAfter;
         });
-      }, param.duration || 300000);
+      }, param.duration || 3000);
     },
     [toasts]
   );
