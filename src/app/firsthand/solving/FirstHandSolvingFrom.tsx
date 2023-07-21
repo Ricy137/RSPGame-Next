@@ -8,6 +8,7 @@ import Input from "@/components/Input";
 import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { useResolveGame } from "@/services/game";
+import { errorMessage } from "@/utils/error";
 
 interface SolveForm {
   move: number;
@@ -26,7 +27,10 @@ const FirstHandSolvingForm: React.FC = () => {
     try {
       await resolveGame(move, salt);
     } catch (err) {
-      if (err instanceof Error) alert(err?.message);
+      if (err instanceof Error) {
+        const message = errorMessage(err);
+        alert(message);
+      }
       console.log(err);
     }
   }, []);

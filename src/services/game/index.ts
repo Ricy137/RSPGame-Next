@@ -47,8 +47,7 @@ export const useStartGame = () => {
     async (move: number, j2: string, stake: number) => {
       if (typeof window === "undefined") return;
       if (!window.ethereum) {
-        alert("Please install metamask");
-        return;
+        throw new Error("Please install metamask");
       }
       let network = window.ethereum.networkVersion;
       if (network !== "5") {
@@ -101,8 +100,7 @@ export const useJoinGame = () => {
   const fetchGameInfo = useCallback(async (contractAdd: string) => {
     if (typeof window === "undefined") return;
     if (!window.ethereum) {
-      alert("Please install metamask");
-      return;
+      throw new Error("Please install metamask");
     }
     let network = window.ethereum.networkVersion;
     if (network !== "5") {
@@ -110,7 +108,7 @@ export const useJoinGame = () => {
     }
     const provider = new BrowserProvider(window.ethereum);
     let exisitency = await provider.getCode(contractAdd);
-    if (!exisitency)
+    if (!exisitency || exisitency === "0x")
       throw Error("no smart contract detected from the provided address!");
     const RSPContract = new Contract(contractAdd, RSPAbi, provider);
     const c2 = await RSPContract.c2();

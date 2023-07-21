@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { errorMessage } from "@/utils/error";
 
 //hooks for async functions
 //loading is true when function is executing, false when done
@@ -15,6 +16,10 @@ const useInTransaction = <T extends (...params: any) => Promise<any>>(
         await transactionAction(...(_params as any));
         setStatus(false);
       } catch (err: any) {
+        if (err instanceof Error) {
+          const message = errorMessage(err);
+          alert(message);
+        }
         setStatus(false);
         if (err?.code === 4001) {
           setError("You cancel the transaction.");

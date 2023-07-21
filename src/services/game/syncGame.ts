@@ -29,12 +29,11 @@ export const [syncGameAtom] = atomsWithQuery<GameInfo | null>((get) => ({
     try {
       if (typeof window === "undefined") return null;
       if (!window.ethereum) {
-        alert("Please install metamask");
-        return null;
+        throw new Error("Please install metamask");
       }
       const provider = new BrowserProvider(window.ethereum);
       let exisitency = await provider.getCode(contractAdd as string);
-      if (!exisitency)
+      if (!exisitency || exisitency === "0x")
         throw Error("no smart contract detected from the provided address!");
       const RSPContract = new Contract(contractAdd as string, RSPAbi, provider);
       const c2 = await RSPContract.c2();

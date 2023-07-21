@@ -3,6 +3,7 @@ import { ReactNode, useCallback, useEffect } from "react";
 import { Provider } from "jotai";
 import { useAtom } from "jotai";
 import { useAccountsAtom } from "@/services/accounts";
+import { errorMessage } from "@/utils/error";
 
 const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -20,9 +21,12 @@ const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     try {
       initial();
-    } catch (e) {
-      console.log(e);
-      if (e instanceof Error) alert(e?.message);
+    } catch (err) {
+      console.log(err);
+      if (err instanceof Error) {
+        const message = errorMessage(err);
+        alert(message);
+      }
     }
   }, []);
   return <>{children}</>;

@@ -1,14 +1,14 @@
 "use client";
 import { useCallback } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useSetAtom } from "jotai";
+import { isAddress } from "ethers";
 import { WrapperCard } from "@/components/Card";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import AuthConnect from "@/modules/AuthConnect";
 import { useResumeGame } from "@/services/game";
+import { errorMessage } from "@/utils/error";
 
 interface ResumeForm {
   contractAdd: string;
@@ -27,7 +27,10 @@ const FirstHandCard: React.FC = () => {
       await resumeGame(contractAdd);
     } catch (err) {
       console.log(err);
-      if (err instanceof Error) alert(err?.message);
+      if (err instanceof Error) {
+        const message = errorMessage(err);
+        alert(message);
+      }
     }
   }, []);
 
@@ -45,8 +48,12 @@ const FirstHandCard: React.FC = () => {
       >
         <div className="text-center">
           <Input
-            {...register("contractAdd", { required: true })}
-            title="Or enter the contract address you created to resume:"
+            error={!!errors.contractAdd}
+            {...register("contractAdd", {
+              required: true,
+              validate: (value) => isAddress(value),
+            })}
+            title="Or enter the EVM contract address you created to resume:"
           />
         </div>
         <AuthConnect>

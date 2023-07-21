@@ -7,7 +7,7 @@ export type Props = OverWrite<
   React.InputHTMLAttributes<HTMLInputElement>,
   {
     title?: string;
-    error?: string;
+    error?: boolean;
     inputClassName?: string;
     lableClassName?: string;
   }
@@ -41,12 +41,22 @@ const Input = forwardRef<HTMLInputElement, Props>(
             {title}
           </label>
         )}
-        <div className={cx(style.balanceInput_wrapper, className)}>
+        <div
+          className={cx(
+            style.balanceInput_wrapper,
+            error && "!border-[#E96170] !ring-[#E96170]",
+            className
+          )}
+        >
           <div className="flex justify-between items-center">
             <input
               ref={ref}
               step="0.000000000000000001"
-              className={cx(style.balanceInput, inputClassName)}
+              className={cx(
+                style.balanceInput,
+                inputClassName,
+                error && "!text-[#E96170]"
+              )}
               autoComplete="off"
               defaultValue={defaultValue}
               onChange={onChange}

@@ -27,11 +27,6 @@ export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
     if (typeof window === "undefined") return null;
     let gameStatusInfo = gameInfo as GameInfo | null;
     if (!window.ethereum) return null;
-    // let network = window.ethereum.networkVersion;
-    // if (network !== "5") {
-    //   alert("Please change your network to goerli");
-    //   return null;
-    // }
     if (!gameStatusInfo) return null;
     const { status, lastAction } = gameStatusInfo;
     if (!Processing_Status.includes(status))

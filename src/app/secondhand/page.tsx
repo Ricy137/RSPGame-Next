@@ -8,6 +8,7 @@ import { WrapperCard } from "@/components/Card";
 import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { playAtom } from "@/services/game";
+import { errorMessage } from "@/utils/error";
 import { useCallback } from "react";
 
 interface PlayForm {
@@ -30,8 +31,8 @@ const SecondHand: React.FC = () => {
       router.push("/secondhand/solving");
     } catch (err) {
       if (err instanceof Error) {
-        alert(err.message);
-        return;
+        const message = errorMessage(err);
+        alert(message);
       }
       console.log(err);
     }

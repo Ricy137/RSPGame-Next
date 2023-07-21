@@ -12,13 +12,11 @@ export const useResolveGame = () => {
     if (!gameEssential) return;
     if (typeof window === "undefined") return;
     if (!window.ethereum) {
-      alert("Please install metamask");
-      return;
+      throw new Error("Please install metamask");
     }
     let network = window.ethereum.networkVersion;
     if (network !== "5") {
-      alert("Please change your network to goerli");
-      return null;
+      throw new Error("Please change your network to goerli");
     }
     const { contractAdd } = gameEssential;
     const signer = await new BrowserProvider(window.ethereum).getSigner();

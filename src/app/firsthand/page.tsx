@@ -2,6 +2,7 @@
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSetAtom } from "jotai";
+import { isAddress } from "ethers";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import MoveBoard from "@/modules/MoveBoard";
@@ -9,6 +10,7 @@ import AuthConnect from "@/modules/AuthConnect";
 import Input from "@/components/Input";
 import { WrapperCard } from "@/components/Card";
 import gameEssentialAtom, { useStartGame } from "@/services/game";
+import { errorMessage } from "@/utils/error";
 
 interface StartForm {
   move: number;
@@ -30,7 +32,10 @@ const FirstHand: React.FC = () => {
     try {
       await startGame(move, j2, stake);
     } catch (err) {
-      if (err instanceof Error) alert(err?.message);
+      if (err instanceof Error) {
+        const message = errorMessage(err);
+        alert(message);
+      }
       console.log(err);
     }
   }, []);
@@ -56,11 +61,13 @@ const FirstHand: React.FC = () => {
         />
         <div className="flex flex-row items-center gap-x-[8px]">
           <Input
-            title="Please enter the address of the second player"
+            title="Please enter the EVM address of the second player"
             lableClassName="w-[300px] text-end"
             type="text"
+            error={!!errors.j2}
             {...register("j2", {
               required: true,
+              validate: (value) => isAddress(value),
             })}
           />
         </div>
