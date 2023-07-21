@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { ToastRender } from "@/components/Toast";
 import JotaiProvider from "@/modules/JotaiProvider";
 import NetworkListener from "@/modules/NetworkListen";
 import Navbar from "@/modules/Navbar";
@@ -20,6 +21,7 @@ export default function RootLayout({
         <JotaiProvider>
           <NetworkListener>
             <>
+              <ToastRender />
               <Navbar />
               {children}
             </>

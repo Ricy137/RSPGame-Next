@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { errorMessage } from "@/utils/error";
-
+import { useShowToast } from "@/components/Toast";
 //hooks for async functions
 //loading is true when function is executing, false when done
 const useInTransaction = <T extends (...params: any) => Promise<any>>(
@@ -8,6 +8,7 @@ const useInTransaction = <T extends (...params: any) => Promise<any>>(
 ) => {
   const [loading, setStatus] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const showToast = useShowToast();
 
   const handleExecAction = useCallback(
     async (..._params: Parameters<T>) => {
@@ -18,7 +19,7 @@ const useInTransaction = <T extends (...params: any) => Promise<any>>(
       } catch (err: any) {
         if (err instanceof Error) {
           const message = errorMessage(err);
-          alert(message);
+          showToast({ content: message, type: "failed" });
         }
         setStatus(false);
         if (err?.code === 4001) {

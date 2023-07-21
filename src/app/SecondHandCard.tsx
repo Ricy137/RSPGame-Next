@@ -5,6 +5,7 @@ import { isAddress } from "ethers";
 import { WrapperCard } from "@/components/Card";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
+import { useShowToast } from "@/components/Toast";
 import AuthConnect from "@/modules/AuthConnect";
 import { useJoinGame } from "@/services/game";
 import useInTransaction from "@/hooks/useInTransaction";
@@ -15,6 +16,7 @@ interface JoinForm {
 }
 const SecondHandCard: React.FC = () => {
   const { joinGame } = useJoinGame();
+  const showToast = useShowToast();
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ const SecondHandCard: React.FC = () => {
         console.log(err);
         if (err instanceof Error) {
           const message = errorMessage(err);
-          alert(message);
+          showToast({ content: message, type: "failed" });
         }
       }
     },

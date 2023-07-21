@@ -1,8 +1,9 @@
 import { useCallback } from "react";
-import { atom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { BrowserProvider, Contract } from "ethers";
 import { useRouter } from "next/navigation";
 import RSPAbi from "@/utils/contract/abi.json";
+import { useShowToast } from "@/components/Toast";
 import gameEssentialAtom, { countDownAtom } from "../game";
 
 //TODO:
@@ -22,24 +23,32 @@ import gameEssentialAtom, { countDownAtom } from "../game";
 export const useTimeout = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);
   const router = useRouter();
+  const showToast = useShowToast();
+
   const j1Timeout = useCallback(async () => {
     if (!gameEssential) return;
     const { contractAdd } = gameEssential;
     if (typeof window === "undefined") return;
     if (!window.ethereum) {
-      alert("Please install metamask");
+      showToast({ content: "Please install metamask", type: "failed" });
       return;
     }
     let network = window.ethereum.networkVersion;
     if (network !== "5") {
-      alert("Please change your network to goerli");
+      showToast({
+        content: "Please change your network to goerli",
+        type: "failed",
+      });
       return null;
     }
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
     const tx = await RPSContract.j1Timeout();
     await tx.wait();
-    alert("Stake has be returned sucessfully");
+    showToast({
+      content: "Stake has be returned sucessfully",
+      type: "success",
+    });
     router.push("/");
   }, []);
 
@@ -49,19 +58,25 @@ export const useTimeout = () => {
     //to avoid error during server pre-rendering
     if (typeof window === "undefined") return;
     if (!window.ethereum) {
-      alert("Please install metamask");
+      showToast({ content: "Please install metamask", type: "failed" });
       return;
     }
     let network = window.ethereum.networkVersion;
     if (network !== "5") {
-      alert("Please change your network to goerli");
+      showToast({
+        content: "Please change your network to goerli",
+        type: "failed",
+      });
       return null;
     }
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RPSContract = new Contract(contractAdd, RSPAbi, signer);
     const tx = await RPSContract.j2Timeout();
     await tx.wait();
-    alert("Stake has be returned sucessfully");
+    showToast({
+      content: "Stake has be returned sucessfully",
+      type: "success",
+    });
     router.push("/");
   }, []);
 

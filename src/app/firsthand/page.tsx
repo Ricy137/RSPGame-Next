@@ -9,6 +9,7 @@ import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import Input from "@/components/Input";
 import { WrapperCard } from "@/components/Card";
+import { useShowToast } from "@/components/Toast";
 import gameEssentialAtom, { useStartGame } from "@/services/game";
 import { errorMessage } from "@/utils/error";
 
@@ -27,6 +28,7 @@ const FirstHand: React.FC = () => {
     setValue,
   } = useForm<StartForm>();
   const { startGame } = useStartGame();
+  const showToast = useShowToast();
 
   const onSubmit = useCallback(async ({ move, j2, stake }: StartForm) => {
     try {
@@ -34,7 +36,7 @@ const FirstHand: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         const message = errorMessage(err);
-        alert(message);
+        showToast({ content: message, type: "failed" });
       }
       console.log(err);
     }

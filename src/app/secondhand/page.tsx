@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import { WrapperCard } from "@/components/Card";
+import { useShowToast } from "@/components/Toast";
 import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { playAtom } from "@/services/game";
@@ -24,6 +25,7 @@ const SecondHand: React.FC = () => {
   } = useForm<PlayForm>();
   const [, mutate] = useAtom(playAtom);
   const router = useRouter();
+  const showToast = useShowToast();
 
   const onSubmit = useCallback(async (formData: PlayForm) => {
     try {
@@ -32,7 +34,7 @@ const SecondHand: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         const message = errorMessage(err);
-        alert(message);
+        showToast({ content: message, type: "failed" });
       }
       console.log(err);
     }

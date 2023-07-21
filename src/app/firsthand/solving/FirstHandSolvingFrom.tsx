@@ -5,6 +5,7 @@ import cx from "clsx";
 import useInTransaction from "@/hooks/useInTransaction";
 import { WrapperCard } from "@/components/Card";
 import Input from "@/components/Input";
+import { useShowToast } from "@/components/Toast";
 import MoveBoard from "@/modules/MoveBoard";
 import AuthConnect from "@/modules/AuthConnect";
 import { useResolveGame } from "@/services/game";
@@ -17,6 +18,7 @@ interface SolveForm {
 
 const FirstHandSolvingForm: React.FC = () => {
   const resolveGame = useResolveGame();
+  const showToast = useShowToast();
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ const FirstHandSolvingForm: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         const message = errorMessage(err);
-        alert(message);
+        showToast({ content: message, type: "failed" });
       }
       console.log(err);
     }
