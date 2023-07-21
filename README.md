@@ -1,7 +1,7 @@
 ## Introduction
 This is a webiste for you and another player to play: https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons
 
-Currently only pc version
+Considering UI isn't the main focus of the exercise, only PC version UI is provided. 
 
 I hope the website provides you the clear processing logic, but a vedio below is also provided to guide you:
 

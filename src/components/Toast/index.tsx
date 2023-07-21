@@ -61,7 +61,7 @@ export const ToastRender: React.FC = () => {
           ) : (
             <FailedIcon className="w-[14px] h-[40px]" />
           )}
-          <div className="min-w-[520px] whitespace-nowrap">{content}</div>
+          <div className="max-w-[1000px] min-w-[520px] truncate">{content}</div>
         </div>
       ))}
     </div>
