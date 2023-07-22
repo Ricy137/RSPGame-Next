@@ -42,7 +42,9 @@ const SecondHandCard: React.FC = () => {
 
   return (
     <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[350px]">
-      <div className="text-[24px] leading-[32px]">Join as the Second Hand</div>
+      <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px]">
+        Join as the Second Hand
+      </div>
       <form
         className="flex flex-col items-center gap-y-[24px]"
         onSubmit={handleSubmit(handleExecAction)}

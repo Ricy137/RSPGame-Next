@@ -34,7 +34,7 @@ const MoveItem: React.FC<MoveItemProps> = ({
     <div
       onClick={handleClick}
       className={cx(
-        "p-[16px] flex flex-row items-center gap-x-[8px] w-full h-[300px] text-[16px] leading-[24px] border-[1px] border-[#111111] hover:border-[#292E41] text-[#111111] hover:text-[#292E41] hover:bg-[#292E410a] cursor-pointer",
+        "p-[16px] flex flex-col md:flex-row justify-center items-center gap-x-[8px] w-full h-[100px] sm:h-[300px] text-[16px] leading-[24px] border-[1px] border-[#111111] hover:border-[#292E41] text-[#111111] hover:text-[#292E41] hover:bg-[#292E410a] cursor-pointer",
         selectedValue === value &&
           "border-[#292E41] text-[#292E41] bg-[#292E410a]"
       )}
@@ -59,7 +59,7 @@ const MoveBoard = forwardRef<
 
   return (
     <>
-      <div className="w-full grid grid-cols-5 items-center">
+      <div className="w-full grid grid-rows-5 sm:grid-rows-1 grid-cols-1 sm:grid-cols-5 items-center">
         <select
           // hidden
           className="hidden"

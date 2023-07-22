@@ -61,10 +61,10 @@ const FirstHand: React.FC = () => {
           })}
           setValue={setValue}
         />
-        <div className="flex flex-row items-center gap-x-[8px]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] w-full sm:w-fit">
           <Input
-            title="Please enter the EVM address of the second player"
-            lableClassName="w-[300px] text-end"
+            title="Please enter second player's EVM address"
+            lableClassName="w-[300px] sm:text-end"
             type="text"
             error={!!errors.j2}
             {...register("j2", {
@@ -73,11 +73,11 @@ const FirstHand: React.FC = () => {
             })}
           />
         </div>
-        <div className="flex flex-row items-center gap-x-[8px]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] w-full sm:w-fit">
           <Input
             title="Stake amount in ether:"
             type="number"
-            lableClassName="w-[300px] text-end"
+            lableClassName="w-[300px] sm:text-end"
             {...register("stake", {
               required: true,
               validate: (value) => value > 0,

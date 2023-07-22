@@ -38,7 +38,9 @@ const FirstHandCard: React.FC = () => {
 
   return (
     <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[350px]">
-      <div className="text-[24px] leading-[32px]">Join as First Hand</div>
+      <div className="text-[16px] sm:text-[24px] leading-[24px] smleading-[32px]">
+        Join as First Hand
+      </div>
       <AuthConnect>
         <Link href="/firsthand">
           <Button>Create and start the game</Button>

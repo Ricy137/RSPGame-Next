@@ -51,7 +51,7 @@ export const ToastRender: React.FC = () => {
         <div
           key={id}
           className={cx(
-            "px-[24px] h-[48px] flex justify-between items-center gap-x-[16px] bg-[#ffffff] rounded-[2px] z-[40] task-card-shadow",
+            "px-[24px] h-[48px] flex justify-between items-center gap-x-[16px] w-[90%] sm:w-fit bg-[#ffffff] rounded-[2px] z-[40] task-card-shadow",
             type === "success" && "text-[#1E8E3E]",
             type === "warning" || (type === "failed" && "text-[#D93026]")
           )}
@@ -61,7 +61,9 @@ export const ToastRender: React.FC = () => {
           ) : (
             <FailedIcon className="w-[14px] h-[40px]" />
           )}
-          <div className="max-w-[1000px] min-w-[520px] truncate">{content}</div>
+          <div className="sm:max-w-[1000px] sm:min-w-[520px] truncate">
+            {content}
+          </div>
         </div>
       ))}
     </div>

@@ -7,6 +7,7 @@ import gameEssentialAtom from "@/services/game";
 import { WrapperCard } from "@/components/Card";
 import useInTransaction from "@/hooks/useInTransaction";
 import Link from "next/link";
+
 const Result: React.FC = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);
   const [data, dispatch] = useAtom(resultAtom);
@@ -28,23 +29,35 @@ const Result: React.FC = () => {
   if (resultData && resultData?.length && resultData.length > 1)
     return (
       <WrapperCard className="flex flex-col items-center w-full min-h-500px">
-        <div className="text-[24px] leading-[32px] font-medium">TIE</div>
-        <div className="text-[16px] leading-[24px]">
+        <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium">
+          TIE
+        </div>
+        <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px]">
           stake will be splited and return to:
         </div>
-        <div className="text-[16px] leading-[24px]">
-          {resultData.join(", ")}
+        <div className="w-full flex flex-col">
+          {resultData.map((result) => (
+            <div
+              key={result}
+              className="w-full text-[16px] leading-[24px] text-center truncate"
+            >
+              {result}
+            </div>
+          ))}
         </div>
       </WrapperCard>
     );
   return (
     <WrapperCard className="flex flex-col items-center gap-y-[24px] w-full min-h-500px">
-      <div className="text-[24px] leading-[32px] font-medium">
+      <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium">
         WINNER Address:
       </div>
-      <div className="text-[16px] leading-[24px]">{resultData ?? ""}</div>
+      <div className="w-full text-[16px] leading-[24px] text-center truncate">
+        {resultData ?? ""}
+      </div>
       <div>
-        It takes a while for the result to be fetched, you can also try to refetch
+        It takes a while for the result to be fetched, you can also try to
+        refetch
       </div>
       {gameEssential && gameEssential.contractAdd ? (
         <>

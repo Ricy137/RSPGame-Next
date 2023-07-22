@@ -29,14 +29,14 @@ const RoundBoard: React.FC = () => {
 
   return (
     <WrapperCard className="w-full">
-      <div className="flex flex-row justify-between items-center uppercase">
-        <div className="text-[24px] leading-[32px] font-medium">
+      <div className="flex flex-col md:flex-row justify-between items-center uppercase">
+        <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium">
           turn: {defferedGameInfo?.turn ?? "--"}
         </div>
         <div className="flex flex-col items-center justify-between gap-y-[8px]">
-          <div className="text-[16px] leading-[24px] font-medium">
+          <div className="flex flex-col sm:flex-row items-center text-[12px] sm:text-[16px] leading-[20px] sm:leading-[24px] font-medium">
             count down &#40;only roughly!&#41;
-            {leftTime && started ? secondToFormat(leftTime) : "--"}
+            <span>{leftTime && started ? secondToFormat(leftTime) : "--"}</span>
           </div>
           {leftTime &&
             leftTime < 0 &&
@@ -52,7 +52,7 @@ const RoundBoard: React.FC = () => {
 
 export const RoundBoardLoading: React.FC = () => (
   <WrapperCard className="w-full">
-    <div className="flex flex-row justify-between uppercase">
+    <div className="flex flex-col md:flex-row justify-between uppercase">
       <div className="text-[24px] leading-[32px] font-medium">turn: --</div>
       <div className="text-[16px] leading-[24px] font-medium">
         count down: --

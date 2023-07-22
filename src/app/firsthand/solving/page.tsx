@@ -15,24 +15,28 @@ const FirstHandSolving: React.FC = () => {
 
   return (
     <WrapperCard className="flex flex-col gap-y-[24px] grow w-full">
-      <div className="text-[24px] leading-[32px] font-medium uppercase">
+      <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium uppercase">
         Waiting for the second hand to play
       </div>
-      <div className="flex flex-row items-center gap-x-[8px]">
-        Game contract address
-        <ToolTip text="Send the address to the second hand player for playing">
-          <QuestionIcon />
-        </ToolTip>
-        {": "}
-        {gameEssential?.contractAdd ?? "--"}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] break-all">
+        <span className="flex flex-row items-center whitespace-nowrap">
+          Game contract address
+          <ToolTip text="Send the address to the second hand player for playing">
+            <QuestionIcon />
+          </ToolTip>
+          {": "}
+        </span>
+        <span className="break-all">{gameEssential?.contractAdd ?? "--"}</span>
       </div>
-      <div className="flex flex-row items-center gap-x-[8px]">
-        Salt &#40; don&#39;t leak! &#41;
-        <ToolTip text="Secrete variable only existed locally. First hand need to save it to resolve the result.">
-          <QuestionIcon />
-        </ToolTip>
-        {": "}
-        {gameEssential?.salt ?? "--"}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px]">
+        <span className="flex flex-row items-center whitespace-nowrap">
+          Salt &#40;don&#39;t leak!&#41;
+          <ToolTip text="Secrete variable only existed locally. First hand need to save it to resolve the result.">
+            <QuestionIcon />
+          </ToolTip>
+          {": "}
+        </span>
+        <span className="break-all">{gameEssential?.salt ?? "--"}</span>
       </div>
     </WrapperCard>
   );

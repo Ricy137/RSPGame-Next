@@ -45,7 +45,7 @@ const FirstHandSolvingForm: React.FC = () => {
         className="flex flex-col items-center gap-y-[24px]"
         onSubmit={handleSubmit(handleExecAction)}
       >
-        <div className="flex flex-col items-center gap-y-[8px]">
+        <div className="flex flex-col items-center gap-y-[8px] w-full">
           Enter your move:
           <MoveBoard
             {...register("move", {

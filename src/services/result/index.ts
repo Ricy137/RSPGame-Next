@@ -33,5 +33,5 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
   // refetchOnWindowFocus: true,
   // refetchInterval: 1500,
   retryDelay: 1000,
-  retry: 20,
+  retry: 15,
 }));

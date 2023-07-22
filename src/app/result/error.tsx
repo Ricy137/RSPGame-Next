@@ -12,51 +12,21 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const [data, dispatch] = useAtom(resultAtom);
-  const [resultData, setResultData] = useState<string[] | null>();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
-  useEffect(() => {
-    if (data && data.pages) {
-      let reverse = data.pages.reverse();
-      setResultData(reverse[0]);
-    }
-  }, [data]);
+  const handleRefresh = useCallback(async () => {
+    location.reload();
+  }, []);
 
-  const handleRefetch = useCallback(async () => {
-    await dispatch({ type: "fetchNextPage" });
-  }, [dispatch]);
-
-  const { loading, handleExecAction } = useInTransaction(handleRefetch);
-
-  if (resultData && resultData?.length && resultData.length > 1)
-    return (
-      <WrapperCard className="flex flex-col items-center w-full min-h-500px">
-        <div className="text-[24px] leading-[32px] font-medium">TIE</div>
-        <div className="text-[16px] leading-[24px]">
-          stake will be splited and return to:
-        </div>
-        <div className="text-[16px] leading-[24px]">
-          {resultData.join(", ")}
-        </div>
-      </WrapperCard>
-    );
   return (
     <WrapperCard className="flex flex-col items-center gap-y-[24px] w-full min-h-500px">
-      <div className="text-[24px] leading-[32px] font-medium">
-        WINNER Address:
+      <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium">
+        Errors occured
       </div>
-      <div className="text-[16px] leading-[24px]">{resultData ?? ""}</div>
-      <div>
-        It takes a while for the result to be fetched, you can also try to
-        refetch
-      </div>
-      <Button disabled={loading} onClick={handleExecAction}>
-        Refetch data
-      </Button>
+      <Button onClick={handleRefresh}>Refresh the page to try again</Button>
     </WrapperCard>
   );
 }

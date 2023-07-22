@@ -7,7 +7,7 @@ const SecondHandLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <ResultListener>
       <div className="py-[40px] flex flex-col items-center min-h-screen w-full">
-        <div className="flex flex-col items-center grow gap-y-[24px] w-4/5">
+        <div className="flex flex-col items-center grow gap-y-[24px] w-4/5 max-w-[1920px]">
           <Suspense fallback={<RoundBoardLoading />}>
             <RoundBoard />
           </Suspense>
