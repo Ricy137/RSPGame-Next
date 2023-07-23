@@ -20,7 +20,7 @@ const ToolTip: React.FC<
   },
   hasArrow = true,
   // delay = 180,
-  trigger = "hover",
+  trigger = "click",
   ...props
 }) => {
   return (
@@ -30,7 +30,7 @@ const ToolTip: React.FC<
       Content={
         <div
           className={cx(
-            "px-[8px] flex items-center h-[32px] text-[14px] leading-[22px] text-[#FFFFFF] bg-[#323233] rounded-[2px]",
+            "px-[8px] flex items-center max-w-[300px] text-[14px] leading-[22px] text-[#FFFFFF] bg-[#323233] rounded-[2px] whitespace-normal break-keep",
             className
           )}
         >
