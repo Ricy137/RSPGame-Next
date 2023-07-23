@@ -22,7 +22,7 @@ const AuthConnect: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   return (
     <Button onClick={handleExecAction} disabled={loading} {...props}>
       {!accounts || (accounts.length === 0 && "Connect Wallet")}
-      {accounts && !networkMatch && "Switch Wallet"}
+      {accounts && !networkMatch && "Switch Network"}
     </Button>
   );
 };
