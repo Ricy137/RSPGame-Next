@@ -60,6 +60,7 @@ const FirstHand: React.FC = () => {
             validate: (value) => value > 0,
           })}
           setValue={setValue}
+          error={!!errors.move}
         />
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] w-full sm:w-fit">
           <Input

@@ -11,6 +11,7 @@ import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { RPSSLIcons } from "@/components/Icons";
 import { Move } from "@/services/game";
 import renderReactNode from "@/utils/renderReactNode";
+import { error } from "console";
 
 interface MoveItemProps {
   selectedValue?: number;
@@ -47,8 +48,11 @@ const MoveItem: React.FC<MoveItemProps> = ({
 
 const MoveBoard = forwardRef<
   HTMLSelectElement,
-  ReturnType<UseFormRegister<any>> & { setValue: UseFormSetValue<any> }
->(({ setValue, onChange, onBlur, name, ...props }, _forwardRef) => {
+  ReturnType<UseFormRegister<any>> & {
+    setValue: UseFormSetValue<any>;
+    error?: boolean;
+  }
+>(({ setValue, onChange, onBlur, name, error, ...props }, _forwardRef) => {
   const { ref, ...rest } = props;
   const [selectedValue, setSelectedValue] = useState<number>();
 
@@ -59,7 +63,12 @@ const MoveBoard = forwardRef<
 
   return (
     <>
-      <div className="w-full grid grid-rows-5 sm:grid-rows-1 grid-cols-1 sm:grid-cols-5 items-center">
+      <div
+        className={cx(
+          "w-full grid grid-rows-5 sm:grid-rows-1 grid-cols-1 sm:grid-cols-5 items-center border-[1px] border-black",
+          error && "!border-[#E96170]"
+        )}
+      >
         <select
           // hidden
           className="hidden"

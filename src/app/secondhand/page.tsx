@@ -54,6 +54,7 @@ const SecondHand: React.FC = () => {
             validate: (value) => value > 0,
           })}
           setValue={setValue}
+          error={!!errors.move}
         />
         <AuthConnect>
           <input

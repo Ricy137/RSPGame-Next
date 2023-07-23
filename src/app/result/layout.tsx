@@ -2,7 +2,6 @@ import { ReactNode, Suspense } from "react";
 import { WrapperCard } from "@/components/Card";
 
 const ResultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  //todo: start time should be an atome variable
   return (
     <div className="py-[40px] flex flex-col items-center min-h-screen w-full">
       <div className="flex flex-col items-center grow gap-y-[24px] w-4/5">

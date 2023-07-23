@@ -1,6 +1,6 @@
 "use client";
 import { PropsWithChildren, useEffect } from "react";
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import { accountsAtom } from "@/services/accounts";
 
 const NetworkListener: React.FC<PropsWithChildren> = ({ children }) => {

@@ -1,8 +1,8 @@
 "use client";
 import { ReactNode, useCallback, useEffect } from "react";
-import { Provider } from "jotai";
+import { Provider, useAtom } from "jotai";
 import { useShowToast } from "@/components/Toast";
-import { useAccountsAtom } from "@/services/accounts";
+import { asyncAccountsAtom } from "@/services/accounts";
 import { errorMessage } from "@/utils/error";
 
 const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -16,19 +16,22 @@ const JotaiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 export default JotaiProvider;
 
 const AccountWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { initial } = useAccountsAtom();
+  const [, initial] = useAtom(asyncAccountsAtom);
   const showToast = useShowToast();
 
   useEffect(() => {
-    try {
-      initial();
-    } catch (err) {
-      console.log(err);
-      if (err instanceof Error) {
-        const message = errorMessage(err);
-        showToast({ content: message, type: "failed" });
+    const initialize = async () => {
+      try {
+        await initial("initial");
+      } catch (err) {
+        console.log(err);
+        if (err instanceof Error) {
+          const message = errorMessage(err);
+          showToast({ content: message, type: "failed" });
+        }
       }
-    }
+    };
+    initialize();
   }, []);
   return <>{children}</>;
 };

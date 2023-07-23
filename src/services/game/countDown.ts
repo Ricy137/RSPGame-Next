@@ -14,6 +14,11 @@ export interface CountDownInfo {
   leftTime?: number;
 }
 
+export const DefaultGameInfo = {
+  started: false,
+  timeoutStamp: 0,
+};
+
 export const [countDownAtom] = atomsWithQuery<CountDownInfo | null>((get) => ({
   queryKey: [
     "countdown",

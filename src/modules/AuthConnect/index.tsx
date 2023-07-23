@@ -1,9 +1,8 @@
 "use client";
-import { PropsWithChildren } from "react";
-import Link from "next/link";
-import { useAtomValue } from "jotai";
+import { PropsWithChildren, useCallback } from "react";
+import { useAtom, useAtomValue } from "jotai";
 import {
-  useAccountsAtom,
+  asyncAccountsAtom,
   accountsAtom,
   networkAtom,
 } from "@/services/accounts";
@@ -11,17 +10,21 @@ import Button from "@/components/Button";
 import useInTransaction from "@/hooks/useInTransaction";
 
 const AuthConnect: React.FC<PropsWithChildren> = ({ children, ...props }) => {
-  const { connect } = useAccountsAtom();
   const accounts = useAtomValue(accountsAtom);
   const network = useAtomValue(networkAtom);
+  const [, asyncAccounts] = useAtom(asyncAccountsAtom);
   const networkMatch = network === "5";
-  const { loading, handleExecAction } = useInTransaction(connect);
+  const handleConnect = useCallback(async () => {
+    await asyncAccounts("connect");
+  }, []);
+
+  const { loading, handleExecAction } = useInTransaction(handleConnect);
 
   if (accounts && accounts.length > 0 && networkMatch) return <>{children}</>;
 
   return (
     <Button onClick={handleExecAction} disabled={loading} {...props}>
-      {!accounts || (accounts.length === 0 && "Connect Wallet")}
+      {(!accounts || accounts.length === 0) && "Connect Wallet"}
       {accounts && !networkMatch && "Switch Network"}
     </Button>
   );

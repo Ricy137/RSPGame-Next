@@ -1,7 +1,6 @@
 import { atomsWithInfiniteQuery } from "jotai-tanstack-query";
 import gameEssentialAtom, { syncGameAtom, GameInfo } from "../game";
 
-//TODO: add types
 export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
   queryKey: [
     "result",
@@ -19,7 +18,6 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
     const data = await res.json();
     const { result } = data;
     if (!result || result.length <= 0 || !(result instanceof Array))
-      // return null;
       throw new Error("No result");
     let addresses: string[] = [];
     addresses = result.map((item: any) => {
@@ -30,8 +28,6 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
   getNextPageParam: () => {
     return true;
   },
-  // refetchOnWindowFocus: true,
-  // refetchInterval: 1500,
   retryDelay: 1000,
-  retry: 15,
+  retry: 10,
 }));

@@ -53,6 +53,7 @@ const FirstHandSolvingForm: React.FC = () => {
               validate: (value) => value > 0,
             })}
             setValue={setValue}
+            error={!!errors.move}
           />
         </div>
         <div className="flex flex-row items-center gap-x-[8px]">

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useState, useEffect, useDeferredValue } from "react";
 import { useAtom } from "jotai";
-import { countDownAtom } from "@/services/game";
+import { countDownAtom, DefaultGameInfo } from "@/services/game";
 import { WrapperCard } from "@/components/Card";
 import { secondToFormat } from "@/utils/time";
 import TimeoutBtn from "./timeout";
@@ -9,8 +9,8 @@ import TimeoutBtn from "./timeout";
 const RoundBoard: React.FC = () => {
   const [gameInfo] = useAtom(countDownAtom);
   const defferedGameInfo = useDeferredValue(gameInfo);
-  const started = defferedGameInfo?.started;
-  const endTime = defferedGameInfo?.timeoutStamp ?? 0;
+  const { started, timeoutStamp: endTime } =
+    defferedGameInfo ?? DefaultGameInfo;
   const [leftTime, setLeftTime] = useState<number | undefined>();
 
   const refreshTime = useCallback(() => {
