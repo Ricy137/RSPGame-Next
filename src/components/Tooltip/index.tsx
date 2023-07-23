@@ -20,7 +20,7 @@ const ToolTip: React.FC<
   },
   hasArrow = true,
   // delay = 180,
-  trigger = "click",
+  trigger = "hover",
   ...props
 }) => {
   return (
