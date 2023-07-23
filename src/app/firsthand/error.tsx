@@ -17,6 +17,7 @@ export default function Error({
   return (
     <div className="flex flex-col items-center gap-y-[24px] w-full">
       <h2>Something went wrong!</h2>
+      <h2>Please refresh the page or go back to landing to resume</h2>
     </div>
   );
 }
