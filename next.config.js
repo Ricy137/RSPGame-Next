@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    legacyBrowsers: false,
+    browsersListForSwc: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

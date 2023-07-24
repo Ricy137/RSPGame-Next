@@ -32,5 +32,9 @@
   "devDependencies": {
     "@swc-jotai/react-refresh": "^0.0.8",
     "@types/lodash-es": "^4.17.8"
-  }
+  },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "maintained node versions"
+  ]
 }
