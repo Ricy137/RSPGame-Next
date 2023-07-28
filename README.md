@@ -29,3 +29,6 @@ yarn dev
 pnpm dev
 ```
 
+## notes
+
+* turbopack is not supported yet
