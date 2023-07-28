@@ -9,7 +9,7 @@ import FirstHandSolvingForm from "./FirstHandSolvingFrom";
 const FirstHandSolving: React.FC = () => {
   const gameEssential = useAtomValue(gameEssentialAtom);
   const data = useAtomValue(syncGameAtom);
-  if (data?.status === "J1Solving") {
+  if (data?.status === "J1Solving" || data?.status === "ended") {
     return <FirstHandSolvingForm />;
   }
 
