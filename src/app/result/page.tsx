@@ -52,24 +52,26 @@ const Result: React.FC = () => {
       <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium">
         WINNER Address:
       </div>
-      <div className="w-full text-[16px] leading-[24px] text-center truncate">
-        {resultData ?? ""}
+      <div className="w-full flex justify-center text-[16px] leading-[24px] text-center truncate">
+        {resultData ??
+          (gameEssential && gameEssential.contractAdd ? (
+            <>
+              <Button disabled={loading} onClick={handleExecAction}>
+                Refetch data
+              </Button>
+            </>
+          ) : (
+            <Link href="/">
+              <Button>
+                Contract address lost, back to landing page to resume
+              </Button>
+            </Link>
+          ))}
       </div>
       <div>
         It takes a while for the result to be fetched, you can also try to
         refetch
       </div>
-      {gameEssential && gameEssential.contractAdd ? (
-        <>
-          <Button disabled={loading} onClick={handleExecAction}>
-            Refetch data
-          </Button>
-        </>
-      ) : (
-        <Link href="/">
-          <Button>Contract address lost, back to landing page to resume</Button>
-        </Link>
-      )}
     </WrapperCard>
   );
 };
