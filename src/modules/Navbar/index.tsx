@@ -8,7 +8,11 @@ const Navbar: React.FC = () => {
     <div className="fixed p-[24px] w-full h-[80px]">
       {pathName !== "/" && (
         <Link href="/">
-          <Button>Back to landing</Button>
+          <Button>
+            {pathName !== "/result"
+              ? "Back to landing"
+              : "restart from landing"}
+          </Button>
         </Link>
       )}
     </div>

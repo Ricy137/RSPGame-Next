@@ -2,8 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    legacyBrowsers: false,
-    browsersListForSwc: true,
+    legacyBrowsers: false
   },
 };
 

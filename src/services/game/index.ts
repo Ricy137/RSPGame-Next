@@ -56,7 +56,7 @@ export const useStartGame = () => {
       let salt = randomBytes256();
       let c1_Hash = solidityPackedKeccak256(
         ["uint8", "uint256"],
-        [move.toString(), salt.toString()]
+        [move.toString(), `0x${salt.toString(16)}`]
       );
       const signer = await new BrowserProvider(window.ethereum).getSigner();
       const RSPContract = new ContractFactory(RSPAbi, RSPBytecode, signer);
@@ -66,7 +66,10 @@ export const useStartGame = () => {
       await tx.waitForDeployment();
       const address = await tx.getAddress();
       // let lastAction = await (tx as Contract).lastAction();
-      setAdd({ contractAdd: address.toString(), salt: salt.toString() });
+      setAdd({
+        contractAdd: address.toString(),
+        salt: `0x${salt.toString(16)}`,
+      });
       router.push("/firsthand/solving");
     },
     []

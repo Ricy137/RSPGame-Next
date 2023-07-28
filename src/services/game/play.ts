@@ -21,6 +21,7 @@ export const [, playAtom] = atomsWithMutation((get) => ({
     const RSPContract = new Contract(gameEssential.contractAdd, RSPAbi, signer);
     let tx = await RSPContract.play(move, { value: stake });
     await tx.wait();
-    return tx
+    if (!tx.hash) throw new Error("Transaction failed");
+    return tx.hash;
   },
 }));
