@@ -32,3 +32,5 @@ pnpm dev
 ## notes
 
 * turbopack is not supported yet
+* components are for more common components which can be used in other projects, modules are for components which may only be reused in the project
+

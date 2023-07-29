@@ -11,7 +11,6 @@ import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { RPSSLIcons } from "@/components/Icons";
 import { Move } from "@/services/game";
 import renderReactNode from "@/utils/renderReactNode";
-import { error } from "console";
 
 interface MoveItemProps {
   selectedValue?: number;

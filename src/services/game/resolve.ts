@@ -14,10 +14,6 @@ export const useResolveGame = () => {
     if (!window.ethereum) {
       throw new Error("Please install metamask");
     }
-    let network = window.ethereum.networkVersion;
-    if (network !== "5") {
-      throw new Error("Please change your network to goerli");
-    }
     const { contractAdd } = gameEssential;
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RSPContract = new Contract(contractAdd, RSPAbi, signer);

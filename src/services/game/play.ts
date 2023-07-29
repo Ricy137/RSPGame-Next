@@ -13,10 +13,6 @@ export const [, playAtom] = atomsWithMutation((get) => ({
     let stake: string;
     let solvedSyncGame = await syncGame;
     stake = solvedSyncGame?.stake || "0";
-    let network = window.ethereum.networkVersion;
-    if (network !== "5") {
-      throw new Error("Please change your network to goerli");
-    }
     const signer = await new BrowserProvider(window.ethereum).getSigner();
     const RSPContract = new Contract(gameEssential.contractAdd, RSPAbi, signer);
     let tx = await RSPContract.play(move, { value: stake });

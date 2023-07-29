@@ -56,6 +56,10 @@ const Result: React.FC = () => {
         {resultData ??
           (gameEssential && gameEssential.contractAdd ? (
             <>
+              <div>
+                It takes a while for the result to be fetched, you can also try
+                to refetch
+              </div>
               <Button disabled={loading} onClick={handleExecAction}>
                 Refetch data
               </Button>
@@ -67,10 +71,6 @@ const Result: React.FC = () => {
               </Button>
             </Link>
           ))}
-      </div>
-      <div>
-        It takes a while for the result to be fetched, you can also try to
-        refetch
       </div>
     </WrapperCard>
   );

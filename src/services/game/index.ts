@@ -49,14 +49,10 @@ export const useStartGame = () => {
       if (!window.ethereum) {
         throw new Error("Please install metamask");
       }
-      let network = window.ethereum.networkVersion;
-      if (network !== "5") {
-        throw new Error("Please change your network to goerli");
-      }
       let salt = randomBytes256();
       let c1_Hash = solidityPackedKeccak256(
         ["uint8", "uint256"],
-        [move.toString(), `0x${salt.toString(16)}`]
+        [move.toString(), salt]
       );
       const signer = await new BrowserProvider(window.ethereum).getSigner();
       const RSPContract = new ContractFactory(RSPAbi, RSPBytecode, signer);
@@ -68,7 +64,7 @@ export const useStartGame = () => {
       // let lastAction = await (tx as Contract).lastAction();
       setAdd({
         contractAdd: address.toString(),
-        salt: `0x${salt.toString(16)}`,
+        salt: salt,
       });
       router.push("/firsthand/solving");
     },
@@ -104,10 +100,6 @@ export const useJoinGame = () => {
     if (typeof window === "undefined") return;
     if (!window.ethereum) {
       throw new Error("Please install metamask");
-    }
-    let network = window.ethereum.networkVersion;
-    if (network !== "5") {
-      throw Error("Please change your network to goerli");
     }
     const provider = new BrowserProvider(window.ethereum);
     let exisitency = await provider.getCode(contractAdd);

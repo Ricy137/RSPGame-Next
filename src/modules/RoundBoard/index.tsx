@@ -35,7 +35,7 @@ const RoundBoard: React.FC = () => {
         </div>
         <div className="flex flex-col items-center justify-between gap-y-[8px]">
           <div className="flex flex-col sm:flex-row items-center text-[12px] sm:text-[16px] leading-[20px] sm:leading-[24px] font-medium">
-            count down &#40;only roughly!&#41;
+            count down:
             <span>{leftTime && started ? secondToFormat(leftTime) : "--"}</span>
           </div>
           {leftTime &&
