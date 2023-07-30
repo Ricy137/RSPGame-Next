@@ -5,7 +5,7 @@
 * modules: Project-specific components that may only be reused within the project.
 * Hooks: Common hooks for broader usage.
 * services: Handles data fetching, caching, and state management. Separates data logic from UI elements.
-* Next framework, jotai for data management, tailwind for styling.
+* Next framework, jotai for data management, tailwind for styling(I would suggest UnoCSS if it's not Next framework).
 
 
 ## Introduction
