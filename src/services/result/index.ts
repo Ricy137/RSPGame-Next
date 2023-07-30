@@ -8,8 +8,6 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
     get(gameEssentialAtom)?.contractAdd,
   ],
   queryFn: async () => {
-    //TODO: only for test
-    // const contractAdd = "0x5FbDB2315678afecb367f032d93F642f64180aa3889";
     const contractAdd = get(gameEssentialAtom)?.contractAdd;
     if (!contractAdd) return null;
     const res = await fetch(

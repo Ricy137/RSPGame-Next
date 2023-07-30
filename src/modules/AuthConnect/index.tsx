@@ -9,6 +9,7 @@ import {
 import Button from "@/components/Button";
 import useInTransaction from "@/hooks/useInTransaction";
 
+//Distinguish whether users have connected to the wallet and whether the network is correct
 const AuthConnect: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   const accounts = useAtomValue(accountsAtom);
   const network = useAtomValue(networkAtom);

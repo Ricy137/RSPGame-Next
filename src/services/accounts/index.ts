@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import { atom, useAtom } from "jotai";
+import { atom } from "jotai";
 
 export const accountsAtom = atom<string[]>([]);
 export const networkAtom = atom<string | undefined>("");
 
+//Write-only atom;
 export const asyncAccountsAtom = atom(
   null,
   async (get, set, type: "initial" | "connect") => {
@@ -18,6 +18,7 @@ export const asyncAccountsAtom = atom(
       set(accountsAtom, accounts);
       const network = window.ethereum.networkVersion;
       set(networkAtom, network);
+      return;
     }
     if (type === "connect") {
       const accounts = await window.ethereum.request({

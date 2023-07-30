@@ -6,7 +6,7 @@ import RSPAbi from "@/utils/contract/abi.json";
 import { useShowToast } from "@/components/Toast";
 import gameEssentialAtom, { countDownAtom } from "../game";
 
-//TODO:
+//TODO: derived atom is a better way than hook
 // export const timeoutAtom = atom(async (get) => {
 //   const gameEssential = get(gameEssentialAtom);
 //   const countDownInfo = await get(countDownAtom);

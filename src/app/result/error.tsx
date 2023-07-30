@@ -1,10 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { useAtom } from "jotai";
 import Button from "@/components/Button";
-import { resultAtom } from "@/services/result";
 import { WrapperCard } from "@/components/Card";
-import useInTransaction from "@/hooks/useInTransaction";
 
 export default function Error({
   error,
