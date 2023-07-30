@@ -1,3 +1,13 @@
+## notes and project structure
+
+* turbopack is not supported yet
+* components: Reusable components for other projects
+* modules: Project-specific components that may only be reused within the project.
+* Hooks: Common hooks for broader usage.
+* services: Handles data fetching, caching, and state management. Separates data logic from UI elements.
+* Next framework, jotai for data management, tailwind for styling.
+
+
 ## Introduction
 This is a webiste for you and another player to play: https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons
 
@@ -29,8 +39,4 @@ yarn dev
 pnpm dev
 ```
 
-## notes
-
-* turbopack is not supported yet
-* components are for more common components which can be used in other projects, modules are for components which may only be reused in the project
 
