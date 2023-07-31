@@ -18,9 +18,10 @@ This is a webiste for you and another player to play: https://en.wikipedia.org/w
 1. First hand creats the game: deploys the game contract, commits its move, assigns the second hand and stakes some money. First hand will get game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
 2. Second hand join the game with the game contract address provided by the first hand.
 3. Second hand makes its move and stake same amount of money as the first hand.
-4. First hand reveals its move and salt. Result revealed and game over.
+4. First hand reveals its move and salt. Result reveals and game over.
 5. If any party doesn't response within 5 minutes, the other party can end the game and get the stake back.
 6. You can always restart a new game from landing page, every time the game restarted, a new contract will be deployed.
+7. If you disconnect for unexpected reasons, you can always resume your game with the game address in the landing page
 
 I hope the website and process introduction provides you the clear processing logic, but a vedio below is also provided to guide you:
 
