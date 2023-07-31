@@ -9,6 +9,7 @@ import Input from "@/components/Input";
 import { useShowToast } from "@/components/Toast";
 import AuthConnect from "@/modules/AuthConnect";
 import { useResumeGame } from "@/services/game";
+import useInTransaction from "@/hooks/useInTransaction";
 import { errorMessage } from "@/utils/error";
 
 interface ResumeForm {
@@ -35,6 +36,7 @@ const FirstHandCard: React.FC = () => {
       }
     }
   }, []);
+  const { loading, handleExecAction } = useInTransaction(onSubmit);
 
   return (
     <WrapperCard className="flex flex-col justify-between items-center gap-y-[24px] w-[350px] h-[350px]">
@@ -48,7 +50,7 @@ const FirstHandCard: React.FC = () => {
       </AuthConnect>
       <form
         className="flex flex-col items-center gap-y-[24px]"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleExecAction)}
       >
         <div className="text-center">
           <Input
@@ -61,7 +63,9 @@ const FirstHandCard: React.FC = () => {
           />
         </div>
         <AuthConnect>
-          <Button>Resume the game</Button>
+          <Button disabled={loading}>
+            {loading ? "pending..." : "Resume the game"}
+          </Button>
         </AuthConnect>
       </form>
     </WrapperCard>
