@@ -34,9 +34,9 @@ export const useTimeout = () => {
       return;
     }
     let network = window.ethereum.networkVersion;
-    if (network !== "5") {
+    if (network !== "11155111") {
       showToast({
-        content: "Please change your network to goerli",
+        content: "Please change your network to Sepolia",
         type: "failed",
       });
       return null;
@@ -62,9 +62,9 @@ export const useTimeout = () => {
       return;
     }
     let network = window.ethereum.networkVersion;
-    if (network !== "5") {
+    if (network !== "11155111") {
       showToast({
-        content: "Please change your network to goerli",
+        content: "Please change your network to Sepolia",
         type: "failed",
       });
       return null;

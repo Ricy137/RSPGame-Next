@@ -14,7 +14,7 @@ const AuthConnect: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   const accounts = useAtomValue(accountsAtom);
   const network = useAtomValue(networkAtom);
   const [, asyncAccounts] = useAtom(asyncAccountsAtom);
-  const networkMatch = network === "5";
+  const networkMatch = network === "11155111";
   const handleConnect = useCallback(async () => {
     await asyncAccounts("connect");
   }, []);

@@ -11,7 +11,7 @@ export const [resultAtom] = atomsWithInfiniteQuery((get) => ({
     const contractAdd = get(gameEssentialAtom)?.contractAdd;
     if (!contractAdd) return null;
     const res = await fetch(
-      `https://api-goerli.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
+      `https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address=${contractAdd}&startblock=0&endblock=99999999999&sort=asc`
     );
     const data = await res.json();
     const { result } = data;

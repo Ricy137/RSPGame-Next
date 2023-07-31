@@ -26,13 +26,13 @@ export const asyncAccountsAtom = atom(
       });
       set(accountsAtom, accounts);
       const network = window.ethereum.networkVersion;
-      if (network !== "5") {
+      if (network !== "11155111") {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x5" }],
+          params: [{ chainId: "0xaa36a7" }],
         });
       }
-      set(networkAtom, "5");
+      set(networkAtom, "11155111");
     }
   }
 );
