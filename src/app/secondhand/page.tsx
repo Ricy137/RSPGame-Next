@@ -59,7 +59,7 @@ const SecondHand: React.FC = () => {
         <AuthConnect>
           <input
             type="submit"
-            value={loading ? "pending" : "Make the move"}
+            value={loading ? "pending" : "Make your move"}
             className={cx(
               "px-[14px] flex flex-row justify-center items-center h-[32px] whitespace-nowrap cursor-pointer border-[1px] text-[14px] rounded-[8px] leading-[22px] bg-[#111111] text-[#F1F1F3] hover:bg-[#292E41] hover:text-[#F1F1F3]",
               loading && "pointer-events-none cursor-not-allowed opacity-30"

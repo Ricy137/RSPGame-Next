@@ -23,13 +23,17 @@ const FirstHandWaiting: React.FC<PropsWithChildren> = ({ children }) => {
     return (
       <WrapperCard className="flex flex-col gap-y-[24px] grow w-full">
         <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium uppercase">
-          Waiting for the second hand to play <br /> After second hand moved,
-          the page will redirect automatically
+          Waiting for the second hand to play
+        </div>
+        <div className="text-[12px] sm:text-[14px] leading-[22px] sm:leading-[20px]">
+          You need save the salt and send the game address to the second hand to
+          join <br />
+          After second hand moved, the page will redirect automatically
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] break-all">
           <span className="flex flex-row items-center whitespace-nowrap">
             Game contract address
-            <ToolTip text="Send the address to the second hand player for playing">
+            <ToolTip text="The contract address of the game you've created. Send the address to the second hand player for playing">
               <QuestionIcon />
             </ToolTip>
             {": "}
@@ -40,8 +44,8 @@ const FirstHandWaiting: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px]">
           <span className="flex flex-row items-center whitespace-nowrap">
-            Salt &#40;save, don&#39;t leak!&#41;
-            <ToolTip text="Secrete variable only existed locally. First hand need to save it to resolve the result.">
+            Salt &#40; don&#39;t leak!&#41;
+            <ToolTip text="Secrete variable only existed locally.Please don't leak and first hand need to save it to resolve the result.">
               <QuestionIcon />
             </ToolTip>
             {": "}
