@@ -1,6 +1,7 @@
 import FirstHandCard from "./FirstHandCard";
 import SecondHandCard from "./SecondHandCard";
 import { WrapperCard } from "@/components/Card";
+import Button from "@/components/Button";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
             target="_blank"
             className="ml-[8px]"
           >
-            Game rules
+            <Button>Game rules</Button>
           </a>
         </WrapperCard>
         <FirstHandCard />

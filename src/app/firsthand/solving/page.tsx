@@ -23,7 +23,8 @@ const FirstHandWaiting: React.FC<PropsWithChildren> = ({ children }) => {
     return (
       <WrapperCard className="flex flex-col gap-y-[24px] grow w-full">
         <div className="text-[16px] sm:text-[24px] leading-[24px] sm:leading-[32px] font-medium uppercase">
-          Waiting for the second hand to play
+          Waiting for the second hand to play <br /> After second hand moved,
+          the page will redirect automatically
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px] break-all">
           <span className="flex flex-row items-center whitespace-nowrap">
@@ -39,7 +40,7 @@ const FirstHandWaiting: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-[8px]">
           <span className="flex flex-row items-center whitespace-nowrap">
-            Salt &#40;don&#39;t leak!&#41;
+            Salt &#40;save, don&#39;t leak!&#41;
             <ToolTip text="Secrete variable only existed locally. First hand need to save it to resolve the result.">
               <QuestionIcon />
             </ToolTip>

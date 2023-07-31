@@ -15,7 +15,7 @@ This is a webiste for you and another player to play: https://en.wikipedia.org/w
 
 **It's a game for two players, if you just want to test the game, it's better to use two browsers.**
 
-1. First hand creats the game: deployed the game contract, commit its move, assign the second hand and stake some money
+1. First hand creats the game: deployed the game contract, commit its move, assign the second hand and stake some money. First hand will get game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
 2. Second hand join the game with the game contract address provided by the first hand.
 3. Second hand makes its move and stake same amount of money as the first hand.
 4. First hand reveals its move and salt. Result revealed and game over.
