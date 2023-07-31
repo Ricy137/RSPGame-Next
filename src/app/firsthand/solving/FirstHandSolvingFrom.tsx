@@ -46,7 +46,7 @@ const FirstHandSolvingForm: React.FC = () => {
         onSubmit={handleSubmit(handleExecAction)}
       >
         <div className="flex flex-col items-center gap-y-[8px] w-full">
-          Enter your move:
+          Re-enter the move you made:
           <MoveBoard
             {...register("move", {
               required: true,
