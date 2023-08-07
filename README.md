@@ -5,6 +5,8 @@ Welcome! This is a web-based game allows you and another player to play [additio
 The project focuses on keeping data updated with the blockchain, and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). But the prompts of game rules won't be stressed, and players are expected to know the rules before playing.
 
 ### Rules explained
+![rules](https://github.com/Ricy137/RSPGame-Next/assets/97211928/ff050285-0f0c-4564-81ce-4a1014eb2afe)
+
 Scissors cuts paper.
 Paper covers rock.
 Rock crushes lizard.
