@@ -19,6 +19,7 @@ Spock vaporizes rock.
 Rock crushes scissors.
 
 [live demo](https://rsp-game-next.vercel.app/)
+
 [game contract for each round](https://github.com/clesaege/RPS/blob/master/RPS.sol)
 
 ### Process
