@@ -23,7 +23,7 @@ Rock crushes scissors.
 
 **It's a game for two players, if you just want to test the game, it's better to use two browsers.**
 
-1. First-hand creats the game: deployed the game contract, commit its move, assigns the second hand and stakes some money. First-hand will get the game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
+1. First-hand creats the game: deploys the game contract, commits its move, assigns the second hand and stakes some money. First-hand will get the game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
 2. Second-hand joins the game with the game contract address provided by the first hand.
 3. Second-hand makes its move and stakes same amount of money as the first hand.
 4. First-hand reveals its move and salt. Result reveals and game over.
