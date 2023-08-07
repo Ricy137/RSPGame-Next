@@ -1,3 +1,35 @@
+## Introduction
+
+Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) on chain. 
+
+The project focuses on keeping data updated with the blockchain, and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). But the prompts of game rules won't be stressed, and players are expected to know the rules before playing.
+
+### Rules explained
+Scissors cuts paper.
+Paper covers rock.
+Rock crushes lizard.
+Lizard poisons Spock.
+Spock smashes scissors.
+Scissors decapitates lizard.
+Lizard eats paper.
+Paper disproves Spock.
+Spock vaporizes rock.
+Rock crushes scissors.
+
+[live demo](https://rsp-game-next.vercel.app/)
+[game contract for each round](https://github.com/clesaege/RPS/blob/master/RPS.sol)
+
+### Process
+
+**It's a game for two players, if you just want to test the game, it's better to use two browsers.**
+
+1. First-hand creats the game: deployed the game contract, commit its move, assigns the second hand and stakes some money. First-hand will get the game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
+2. Second-hand joins the game with the game contract address provided by the first hand.
+3. Second-hand makes its move and stakes same amount of money as the first hand.
+4. First-hand reveals its move and salt. Result reveals and game over.
+5. If any party doesn't response within 5 minutes, the other party can end the game and get the stake back(if the second-hand didn't join, the first-hand will recieve its stake, and if the fist-hand was unwilling to reveal it's original move, the second-hand will get stakes of both).
+6. You can always restart a new game from landing page, every time the game restarted, a new contract will be deployed.
+
 ## notes and project structure
 
 - turbopack is not supported yet
@@ -5,28 +37,7 @@
 - modules: Project-specific components that may only be reused within the project.
 - Hooks: Common hooks for broader usage.
 - services: Handles data fetching, caching, and state management. Separates data logic from UI elements.
-- Next framework, jotai for data management, tailwind for styling(I would suggest UnoCSS if it's not Next framework).
-
-## Introduction
-
-This is a webiste for you and another player to play: https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons
-
-### Process
-
-**It's a game for two players, if you just want to test the game, it's better to use two browsers.**
-
-1. First hand creats the game: deployed the game contract, commit its move, assign the second hand and stake some money. First hand will get game address and salt after creating the game and first hand need to save the salt and send the game address for second hand to play.
-2. Second hand join the game with the game contract address provided by the first hand.
-3. Second hand makes its move and stake same amount of money as the first hand.
-4. First hand reveals its move and salt. Result revealed and game over.
-5. If any party doesn't response within 5 minutes, the other party can end the game and get the stake back.
-6. You can always restart a new game from landing page, every time the game restarted, a new contract will be deployed.
-
-I hope the website and process introduction provides you the clear processing logic, but a vedio below is also provided to guide you:
-
-https://github.com/Ricy137/RSPGame-Next/assets/97211928/4d51e6ad-0d77-4cf1-964a-69faf4178920
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- Next framework, jotai for data management, tailwind for styling.
 
 ## Getting Started
 

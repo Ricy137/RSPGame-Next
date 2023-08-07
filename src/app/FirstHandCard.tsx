@@ -29,7 +29,6 @@ const FirstHandCard: React.FC = () => {
       const { contractAdd } = data;
       await resumeGame(contractAdd);
     } catch (err) {
-      console.log(err);
       if (err instanceof Error) {
         const message = errorMessage(err);
         showToast({ content: message, type: "failed" });
