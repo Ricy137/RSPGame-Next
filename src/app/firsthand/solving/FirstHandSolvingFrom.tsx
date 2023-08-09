@@ -59,7 +59,7 @@ const FirstHandSolvingForm: React.FC = () => {
         <div className="flex flex-row items-center gap-x-[8px]">
           <Input
             title="Salt:"
-            type="text"
+            type="password"
             {...register("salt", {
               required: true,
             })}
