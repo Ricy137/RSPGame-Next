@@ -32,6 +32,7 @@ const MoveItem: React.FC<MoveItemProps> = ({
 
   return (
     <div
+      data-testid={`move-item-${value}`}
       onClick={handleClick}
       className={cx(
         "p-[16px] flex flex-col md:flex-row justify-center items-center gap-x-[8px] w-full h-[100px] sm:h-[300px] text-[16px] leading-[24px] border-[1px] border-[#111111] hover:border-[#292E41] text-[#111111] hover:text-[#292E41] hover:bg-[#292E410a] cursor-pointer",
@@ -45,6 +46,7 @@ const MoveItem: React.FC<MoveItemProps> = ({
   );
 };
 
+// TODO: MoveBoard shouldn't be only compatible with react-form-hooks
 const MoveBoard = forwardRef<
   HTMLSelectElement,
   ReturnType<UseFormRegister<any>> & {
@@ -63,6 +65,7 @@ const MoveBoard = forwardRef<
   return (
     <>
       <div
+        data-testid="move-board"
         className={cx(
           "w-full grid grid-rows-5 sm:grid-rows-1 grid-cols-1 sm:grid-cols-5 items-center border-[1px] border-black",
           error && "!border-[#E96170]"
