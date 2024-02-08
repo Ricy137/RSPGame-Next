@@ -2,7 +2,7 @@
 
 Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) on chain. 
 
-The project focuses on keeping data updated with the blockchain, and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). But the prompts of game rules won't be stressed, and players are expected to know the rules before playing.
+The project focuses on keeping data updated with the blockchain, and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). and some tricks with etherjs. But the prompts of game rules won't be stressed, and players are expected to know the rules before playing.
 
 ### Rules explained
 ![rules](https://github.com/Ricy137/RSPGame-Next/assets/97211928/ff050285-0f0c-4564-81ce-4a1014eb2afe)
