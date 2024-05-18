@@ -1,3 +1,6 @@
+For how's it designed and related techs please refer to another similar project [here](https://github.com/Ricy137/PhatStrategy) 
+
+This README would only about how to run and play the onChain game.
 ## Introduction
 
 Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) on chain. 
