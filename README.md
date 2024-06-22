@@ -1,11 +1,10 @@
-For how's it designed and related techs please refer to another similar project [here](https://github.com/Ricy137/PhatStrategy) 
+If you care more about game theory and game design, you can read my previous project [here](https://github.com/Ricy137/PhatStrategy) 
 
-This README would only about how to run and play the onChain game.
 ## Introduction
 
-Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) on chain. 
+Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) fully on chain. 
 
-The project focuses on keeping data updated with the blockchain, and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). and some tricks with etherjs. But the prompts of game rules won't be stressed, and players are expected to know the rules before playing.
+The technical challenge in frontend is how to keep data updated with the blockchain(state-management), and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). and some tricks with etherjs. This is a project that requires lots of blockchain knowledge to be understood technically. 
 
 ### Rules explained
 ![rules](https://github.com/Ricy137/RSPGame-Next/assets/97211928/ff050285-0f0c-4564-81ce-4a1014eb2afe)
