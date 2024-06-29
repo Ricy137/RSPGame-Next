@@ -1,10 +1,10 @@
-If you care more about game theory and game design, you can read my previous project [here](https://github.com/Ricy137/PhatStrategy) 
-
 ## Introduction
 
 Welcome! This is a web-based game allows you and another player to play [additional version of Rock, Paper, and Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons) fully on chain. 
 
 The technical challenge in frontend is how to keep data updated with the blockchain(state-management), and preventing players from losing their money (Cryptographically Secure Random Value, timeout responses, e.t...). and some tricks with etherjs. This is a project that requires lots of blockchain knowledge to be understood technically. 
+
+If you care more about game theory and game design, you can read my previous project [here](https://github.com/Ricy137/PhatStrategy), which is similar but emphasize more on Game Theory and make the game more fun. 
 
 ### Rules explained
 ![rules](https://github.com/Ricy137/RSPGame-Next/assets/97211928/ff050285-0f0c-4564-81ce-4a1014eb2afe)
